@@ -1,0 +1,182 @@
+
+------------------------------------------------------------------------------
+DB 관련 History
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+# PLAYER_INDEX_CREATE_BUG_FIX
+2005.11.07
+새로 생성한 계정이 첫 접속시 접속이 되지 않는 문제 해결.
+player_index에 새 계정의 정보를 만드는 Query의 리턴을 처리 하지 않았음.
+처리후 되돌아가도록 함수 RESULT_PLAYER_INDEX_CREATE(...) 를 추가함.
+------------------------------------------------------------------------------
+
+# TTL_CACHE
+------------------------------------------------------------------------------
+alter table account add ttl_mileage int(11) NOT NULL default 0 after ttl_cash
+
+# GUILD_SKILL_COOLTIME_BUG_FIX
+------------------------------------------------------------------------------
+* 구조체 변수 초기화 버그:
+	파라미터 _dwSkillVnum 
+		dwSkillVnum(dwSkillVnum) (X)
+		dwSkillVnum(_dwSkillVnum) (O)
+
+* m_pqSkill pop 이후 데이터 접근함
+
+# UNKNOWN_GUILD_MANAGER_UPDATE_LOG
+------------------------------------------------------------------------------
+알수 없는 길드 매니저 로그 삭제 (1초마다 출력되어 양이 너무 많음)
+
+# PATCH
+------------------------------------------------------------------------------
+* MYSHOP_PRICE_LIST:
+비단 보따리를 사용하면 아이템 가격을 저장할 수 있다
+	SQL 테이블:
+		myshop_pricelist_POSTFIX
+
+* ADD_GUILD_PRIV_TIME:
+길드 보너스에 유효 시간을 추가함
+
+* ADD_EMPIRE_PRIV_TIME:
+제국 보너스 시간 조정
+
+* BLOCK_CHAT:
+특정 유저에게 채팅 금지
+
+* ADD_GRANDMASTER_SKILL:
+	SQL 테이블:
+		skill_proto_POSTFIX:
+			szPointOn3, szPointPoly3, szDurationPoly3, szGrandMasterAddSPCostPoly 컬럼 추가
+
+ALTER TABLE skill_proto_05 ADD COLUMN szPointOn3	varchar(100) NOT NULL default 'NONE';
+ALTER TABLE skill_proto_05 ADD COLUMN szPointPoly3 	varchar(100) NOT NULL default '';
+ALTER TABLE skill_proto_05 ADD COLUMN szDurationPoly3	varchar(100) NOT NULL default '';
+ALTER TABLE skill_proto_05 ADD COLUMN szGrandMasterAddSPCostPoly varchar(100) NOT NULL default '';
+
+* ADD_BUILDING_NPC:
+	SQL 테이블:
+		object_proto_POSTFIX:
+			npc, group_vnum, dependent_group 컬럼 추가	
+
+* ITEM_LOAD_LOG_ATTACH_PID:
+	PID 덧붙임
+
+* HOTBACKUP:
+	한시간단위로 캐릭터 변화 정보 저장
+			
+
+# 개인 상점 가격 저장 관련 로그
+
+요청시:
+	캐쉬히트시:
+		Cache MyShopPricelist handle[%d] pid[%d]
+	
+	캐쉬미스시:
+		Query MyShopPricelist handle[%d] pid[%d]
+
+	게임서버에 보낼때:
+		Load MyShopPricelist handle[%d] pid[%d] count[%d]
+
+# 개인상점 아이템 가격정보 저장/갱신
+
+    Game server 로 부터 HEADER_GD_MYSHOP_PRICELIST_UPDATE packet 받음
+
+
+	1. ClientManager.cpp - CClientManager::MyshopPricelistUpdate
+	   캐시에 가격정보가 있으면 캐시의 데이터 갱신.
+	   캐시에 가격정보가 없으면 DB에 기존의 데이터 로드 쿼리.
+	     SELECT item_vnum, price FROM myshop_pricelist_tor WHERE owner_id='owner_id'
+
+    2. ClientManager.cpp - CClientManager::RESULT_PRICELIST_LOAD_FOR_UPDATE
+	   로드된 기존의 데이터로 캐시 생성.
+	   받았던 갱신할 데이터로 캐시의 데이터 갱신. - CItemPriceListTableCache::UpdateList
+
+
+# 개인상점 아이템 가격정보의 Load
+
+    Game server 로 부터 HEADER_GD_MYSHOP_PRICELIST_REQ pakcet 받음
+
+    1. ClientManager.cpp - CClientManager::MyshopPricelistRequest
+	   캐시에 가격정보가 있으면 캐시를 읽어 응답 패킷(HEADER_GD_MYSHOP_PRICELIST_RES) 전송.
+	   캐시에 가격정보가 없으면 DB 에 쿼리
+	     SELECT item_vnum, price FROM myshop_pricelist_tor WHERE owner_id='owner_id'
+
+    2. ClientManager.cpp - CClientManager::RESULT_PRICELIST_LOAD
+	   DB 에서 로드한 정보로 캐시 생성.
+	   로드한 정보로 가격정보 리스트 요청에 대한 응답 패킷(HEADER_GD_MYSHOP_PRICELIST_RES) 전송.
+
+
+# 개인상점 아이템 가격정보 캐시 Flush
+
+    Flush 주기: conf.txt 에 ITEM_PRICELIST_CACHE_FLUSH_SECONDS 값 추가.(초단위)
+
+	Cache.cpp - CItemPriceListTableCache::OnFlush
+	  캐시를 소유하는 플레이어에 대한 아이템 가격정보 전부 삭제.
+	    DELETE FROM myshop_pricelist_tor WHERE owner_id='owner_id'
+
+	  캐시에 저장된 아이템 가격정보를 DB 에 전부 쿼리.
+	    INSERT INTO myshop_pricelist_tor VALUES( 'owner_id', 'item_vnum', 'price' )
+
+
+# 개인 상점 가격 저장 DB Scheme 
+
+CREATE TABLE `myshop_pricelist_tor` (
+    `owner_id` int(11) unsigned NOT NULL default '0',
+    `item_vnum` int(11) unsigned NOT NULL default '0',
+    `price` int(10) unsigned NOT NULL default '0',
+) ENGINE=MyISAM DEFAULT CHARSET=euckr
+
+
+# Billing ON - OFF 짝이 안 맞는 문제 2005.05.03.ipkn
+
+	1. 유저가 접속한 상태
+	2. DB가 셧다운 된다. ( 이 경우에도 유저는 정상적인 플레이 가능 )
+	3. 이 상황에서 유저가 접속을 종료한다. (DB가 끊겼서 패킷 전송 실패)
+	4. DB가 다시 켜지면 해당 유저의 빌링 정보가 복구되지 않는다.
+	5. 이 유저는 Billing ON 상태로 유지되어 계속 시간이 감소된다.
+
+	- DB-AUTH 접속이 각각 끊기면:
+		AUTH 에서 빌링 처리 테이블을 전부 지운다.
+		DB 가 다시 접속하면 생성한다. 
+
+	-> 접속이 끊겨있는 동안은 유저는 무료 플레이가 가능하다
+
+# 플레이어 아이디 확인
+
+	select id from player_postfix where name="라라";
+
+# DB 테이블
+
+	현재(2005.04.13)는 서버별로 postfix 를 붙이고 있다
+
+	_01, _02, _03, _04 는 기존 서버군이며
+	_05 는 천마서버이다.
+
+	하지만 앞으로는 아예 데이터 베이스를 나누어서 구분하도록 한다
+
+# 상점 아이템
+
+	db:
+		shop:
+			vnum: 상점 구분 번호
+			name: 상점 이름
+			npc_vnum: 연결된 NPC 이름
+
+		shop_item_table:
+			shop_vnum: 상점 구분 번호
+			item_vnum: 아이템 번호
+			count:	아이템 개수
+
+	상점 추가:
+		insert into shop (vnum, name, npc_vnum) values (9, "떠돌이 행상인", 20042);
+
+	상점 물건 추가:
+		insert into shop_item (shop_vnum, item_vnum, count) values (9, 11901, 1);
+		insert into shop_item (shop_vnum, item_vnum, count) values (9, 11903, 1);
+		insert into shop_item (shop_vnum, item_vnum, count) values (9, 11902, 1);
+		insert into shop_item (shop_vnum, item_vnum, count) values (9, 11904, 1);
+
+	리붓해야 적용됨
+

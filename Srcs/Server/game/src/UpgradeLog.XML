@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="game.2008">
+</Property><Property Name="Projektmappendatei" Value="D:\tt (1)\dev\Srcs\Server\game\src\game.2008.sln">
+</Property><Property Name="Date" Value="Freitag, 27. September 2013">
+</Property><Property Name="Time" Value="20:09:33">
+</Property></Properties><Event ErrorLevel="0" Project="game.2008" Source="game.2008.vcproj" Description="Converting project file 'D:\tt (1)\dev\Srcs\Server\game\src\game.2008.vcproj'.">
+</Event><Event ErrorLevel="1" Project="game.2008" Source="game.2008.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="1" Project="game.2008" Source="game.2008.vcproj" Description="MSB8012: $(TargetName) ('game') does not match the Linker's OutputFile property value 'D:\tt (1)\dev\Srcs\Server\game\src\..\game_d.exe' ('game_d') in project configuration 'Debug|Win32'. This may cause your project to build incorrectly. To correct this, please make sure that $(TargetName) property value matches the value specified in %(Link.OutputFile).">
+</Event><Event ErrorLevel="1" Project="game.2008" Source="game.2008.vcproj" Description="MSB8012: $(TargetPath) ('D:\tt (1)\dev\Srcs\Server\game\src\..\game.exe') does not match the Linker's OutputFile property value 'D:\tt (1)\dev\Srcs\Server\game\src\..\game_d.exe' ('D:\tt (1)\dev\Srcs\Server\game\game_d.exe') in project configuration 'Debug|Win32'. This may cause your project to build incorrectly. To correct this, please make sure that $(TargetPath) property value matches the value specified in %(Link.OutputFile).">
+</Event><Event ErrorLevel="1" Project="game.2008" Source="game.2008.vcproj" Description="MSB8012: $(TargetPath) ('D:\tt (1)\dev\Srcs\Server\game\src\..\game.exe') does not match the Linker's OutputFile property value 'D:\tt (1)\dev\Srcs\Server\game\src\..\game.exe' ('D:\tt (1)\dev\Srcs\Server\game\game.exe') in project configuration 'Release|Win32'. This may cause your project to build incorrectly. To correct this, please make sure that $(TargetPath) property value matches the value specified in %(Link.OutputFile).">
+</Event><Event ErrorLevel="0" Project="game.2008" Source="game.2008.vcproj" Description="Done converting to new project file 'D:\tt (1)\dev\Srcs\Server\game\src\game.2008.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="game.2008" Source="game.2008.vcproj" Description="Converted">
+</Event></UpgradeLog>

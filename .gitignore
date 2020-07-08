@@ -1,0 +1,37 @@
+Extern
+
+### windows (visual studio tarafindan olusturulan dosyalar)
+.vs
+
+*.ncb
+*.opensdf
+*.sdf
+
+*.bsc
+*.exe
+*.idb
+*.ilk
+*.map
+*.pdb
+
+obj
+ipch
+Debug
+Release
+
+bin
+
+### unix (freebsd derleme surecinde olusturulan ekstra dosyalar.)
+OBJDIR
+.obj
+
+Depend
+Depend.bak
+
+*.o
+
+db_r*
+game_r*
+
+*.bak
+
