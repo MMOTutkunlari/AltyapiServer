@@ -18,7 +18,6 @@
 #include "castle.h"
 #include "dev_log.h"
 #include "HackShield_Impl.h"
-#include "check_server.h"
 #ifndef __WIN32__
 	#include "limit_time.h"
 #endif
@@ -180,14 +179,6 @@ bool CInputProcessor::Process(LPDESC lpDesc, const void * c_pvOrig, int iBytes, 
 void CInputProcessor::Pong(LPDESC d)
 {
 	d->SetPong(true);
-
-#ifdef ENABLE_LIMIT_TIME
-	//if (!CCheckServer::Instance().IsValid())
-	//{
-	//	ClearAdminPages();
-	//	return;
-	//}
-#endif
 }
 
 void CInputProcessor::Handshake(LPDESC d, const char * c_pData)

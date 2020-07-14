@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdio.h>
+#include <algorithm>
 #include "../../libthecore/include/memcpy.h"
 #include "../../common/stl.h"
 #include "grid.h"
@@ -13,7 +14,7 @@ CGrid::CGrid(int w, int h) : m_iWidth(w), m_iHeight(h)
 CGrid::CGrid(CGrid * pkGrid, int w, int h) : m_iWidth(w), m_iHeight(h)
 {
 	m_pGrid = new char[m_iWidth * m_iHeight];
-	int iSize = std::MIN(w * h, pkGrid->m_iWidth * pkGrid->m_iHeight);
+	int iSize = std::min(w * h, pkGrid->m_iWidth * pkGrid->m_iHeight);
 	thecore_memcpy(m_pGrid, pkGrid->m_pGrid, sizeof(char) * iSize);
 }
 

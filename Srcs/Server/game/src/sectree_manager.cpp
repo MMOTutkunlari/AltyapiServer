@@ -466,7 +466,7 @@ bool SECTREE_MANAGER::LoadAttribute(LPSECTREE_MAP pkMapSectree, const char * c_p
 	int maxMemSize = LZOManager::instance().GetMaxCompressedSize(sizeof(DWORD) * (SECTREE_SIZE / CELL_SIZE) * (SECTREE_SIZE / CELL_SIZE));
 
 	unsigned int uiSize;
-	unsigned int uiDestSize;
+	lzo_uint uiDestSize;
 
 #ifndef _MSC_VER
 	BYTE abComp[maxMemSize];

@@ -6,7 +6,7 @@ BSD_VERSION = $(shell uname -v 2>&1 | cut -d' ' -f2 | cut -d'.' -f1)
 SVN_VERSION = $(shell cat ../../__VERSION__)
 P4_VERSION = $(shell cat ../../__VERSION__)
 
-CC = g++
+CC = g++9
 
 INCDIR =
 LIBDIR =
@@ -18,36 +18,36 @@ $(shell if [ ! -d $(OBJDIR) ]; then mkdir $(OBJDIR); fi)
 LIBS = -pthread -lm -lmd
 # Removed -fno-rtti 
 CFLAGS = -g -Wall -O2 -m32 -pipe -fexceptions -fno-strict-aliasing -pthread -D_THREAD_SAFE -DNDEBUG -D__SVN_VERSION__=\"$(SVN_VERSION)\"
-
-ifeq ($(GCC_VERSION), 4)
-CFLAGS += -mtune=i686 -fstack-protector-all
-else
-CFLAGS += -mcpu=i686
-endif
+CFLAGS += -Wno-deprecated-declarations -Wno-format-truncation -Wno-sign-compare -Wno-nonnull-compare
+CFLAGS += -Wno-int-in-bool-context
+CFLAGS += -fstack-protector-all
+CXXFLAGS = -std=c++11 -Wl,-rpath=/usr/local/lib/gcc9
 
 # boost
 INCDIR += -I../../../Extern/include/boost
 
 # DevIL
-INCDIR += -I../../libdevil
-LIBDIR += -L../../libdevil
-LIBS += -lIL -lpng -ltiff -lmng -llcms -ljpeg
+INCDIR += -I../../../Extern/include/IL
+LIBS += ../../../Extern/lib/libIL.a\
+		../../../Extern/lib/libjasper.a\
+		../../../Extern/lib/libpng.a\
+		../../../Extern/lib/libtiff.a\
+		../../../Extern/lib/libjbig.a\
+		../../../Extern/lib/libmng.a\
+		/usr/lib/liblzma.a\
+		../../../Extern/lib/liblcms.a\
+		../../../Extern/lib/libjpeg.a
+		
+#LIBS += -lIL -lpng -ltiff -lmng -llcms -ljpeg
 
 # MySQL
-ifeq ($(BSD_VERSION), 7)
-INCDIR += -I../../libmysql/7.x-5.1.35
-LIBDIR += -L../../libmysql/7.x-5.1.35
-else
-INCDIR += -I../../libmysql/5.x-5.1.35
-LIBDIR += -L../../libmysql/5.x-5.1.35
-endif
-
-LIBS += -lmysqlclient -lz
+INCDIR += -I/usr/local/include/mysql
+LIBS += /usr/local/lib/mysql/libmysqlclient.a /usr/lib/libz.a
 
 # Miscellaneous external libraries
 INCDIR += -I../../../Extern/include
 LIBDIR += -L../../../Extern/lib
-LIBS += -lcryptopp -lgtest
+LIBS += -lcryptopp
 
 # HackShield
 INCDIR += -I../../libhackshield/include
@@ -58,16 +58,15 @@ LIBS += -lanticpxsvr
 INCDIR += -I../../libxtrap/include
 
 # openssl
-#INCDIR += -I/usr/include
-LIBS += -lssl
+INCDIR += -I/usr/include
+LIBS += -lssl -lcrypto
 
 # Project Library
 INCDIR += -I../../liblua/include
 INCDIR += -I/usr/local/include
-INCDIR += -I../../libserverkey
-LIBDIR += -L../../libthecore/lib -L../../libpoly -L../../libsql -L../../libgame/lib -L../../liblua/lib -L../../libserverkey
+LIBDIR += -L../../libthecore/lib -L../../libpoly -L../../libsql -L../../libgame/lib -L../../liblua/lib
 LIBDIR += -L/usr/local/lib
-LIBS += -lthecore -lpoly -llua -llualib -lsql -lgame -lserverkey
+LIBS += -lthecore -lpoly -llua -llualib -lsql -lgame
 USE_STACKTRACE = 0
 ifeq ($(USE_STACKTRACE), 1)
 LIBS += /usr/local/lib/libexecinfo.a
@@ -120,16 +119,16 @@ MAINCPP = main.cpp
 default: $(TARGET)
 
 $(OBJDIR)/minilzo.o: minilzo.c
-	@$(CC) $(CFLAGS) $(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) $(CXXFLAGS) $(INCDIR) -c $< -o $@
 	@echo compile $<
 
 $(OBJDIR)/version.o: version.cpp
-	@$(CC) $(CFLAGS) -D__USER__=\"$(USER)\" -D__HOSTNAME__=\"$(HOSTNAME)\" -D__PWD__=\"$(PWD)\" -D__P4_VERSION__=\"$(P4_VERSION)\" -c $< -o $@
+	@$(CC) $(CFLAGS) $(CXXFLAGS) -D__USER__=\"$(USER)\" -D__HOSTNAME__=\"$(HOSTNAME)\" -D__PWD__=\"$(PWD)\" -D__P4_VERSION__=\"$(P4_VERSION)\" -c $< -o $@
 	@echo compile $<
 
 $(OBJDIR)/%.o: %.cpp
 	@echo compile $<
-	@$(CC) $(CFLAGS) $(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) $(CXXFLAGS) $(INCDIR) -c $< -o $@
 
 limit_time:
 	@echo update limit time
@@ -137,7 +136,7 @@ limit_time:
 
 $(TARGET): $(CPPOBJS) $(COBJS) $(MAINOBJ)
 	@echo linking $(TARGET)....
-	@$(CC) $(CFLAGS) $(LIBDIR) $(COBJS) $(CPPOBJS) $(MAINOBJ) $(LIBS) -o $(TARGET)
+	@$(CC) $(CFLAGS) $(CXXFLAGS) $(LIBDIR) $(COBJS) $(CPPOBJS) $(MAINOBJ) $(LIBS) -o $(TARGET)
 
 #$(TEST_TARGET): $(TESTCPP) $(CPPOBJS) $(COBJS) $(TESTOBJ)
 #	@echo linking $(TEST_TARGET)
@@ -151,6 +150,6 @@ tag:
 	ctags *.cpp *.h *.c
 
 dep:
-	makedepend -f Depend $(INCDIR) -I/usr/include/c++/3.3 -I/usr/include/c++/4.2 -p$(OBJDIR)/ $(CPPFILE) $(CFILE) $(MAINCPP) $(TESTCPP) 2> /dev/null > Depend
+	makedepend -f Depend $(INCDIR) -I/usr/include/c++/3.3 -I/usr/include/c++/4.2 -p$(OBJDIR)/ $(CPPFILE) $(CFILE) $(MAINCPP) 2> /dev/null > Depend
 
 sinclude Depend

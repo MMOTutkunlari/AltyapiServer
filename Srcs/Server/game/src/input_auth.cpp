@@ -10,7 +10,6 @@
 #include "locale_service.h"
 #include "auth_brazil.h"
 #include "db.h"
-#include "check_server.h"
 
 #ifndef __WIN32__
 	#include "limit_time.h"
@@ -110,15 +109,6 @@ CInputAuth::CInputAuth()
 
 void CInputAuth::Login(LPDESC d, const char * c_pData)
 {
-#ifdef ENABLE_LIMIT_TIME
-	//if (!CCheckServer::Instance().IsValid())
-	//{
-	//	extern void ClearAdminPages();
-	//	ClearAdminPages();
-	//	exit(1);
-	//	return;
-	//}
-#endif
 	TPacketCGLogin3 * pinfo = (TPacketCGLogin3 *) c_pData;
 
 	if (!g_bAuthServer)
@@ -239,15 +229,6 @@ void CInputAuth::Login(LPDESC d, const char * c_pData)
 
 void CInputAuth::LoginOpenID(LPDESC d, const char * c_pData)
 {
-#ifdef ENABLE_LIMIT_TIME
-	//if (!CCheckServer::Instance().IsValid())
-	//{
-	//	extern void ClearAdminPages();
-	//	ClearAdminPages();
-	//	exit(1);
-	//	return;
-	//}
-#endif
 	//OpenID test code.
 	TPacketCGLogin5 *tempInfo1 = (TPacketCGLogin5 *)c_pData;
 

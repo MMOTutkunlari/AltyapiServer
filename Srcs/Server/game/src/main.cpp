@@ -78,9 +78,9 @@
 #include "auction_manager.h"
 #endif
 
-#ifndef __WIN32__
+/*#ifndef __WIN32__
 #include <gtest/gtest.h>
-#endif
+#endif*/
 
 #ifdef USE_STACKTRACE
 #include <execinfo.h>
@@ -90,7 +90,6 @@
 //#ifdef _WIN32
 	#define _USE_SERVER_KEY_
 //#endif
-#include "check_server.h"
 
 extern void WriteVersion();
 //extern const char * _malloc_options;
@@ -410,7 +409,7 @@ int main(int argc, char **argv)
 	DebugAllocator::StaticSetUp();
 #endif
 
-#ifndef __WIN32__
+/*#ifndef __WIN32__
 	// <Factor> start unit tests if option is set
 	if ( argc > 1 ) 
 	{
@@ -420,7 +419,7 @@ int main(int argc, char **argv)
 			return RUN_ALL_TESTS();
 		}
 	}
-#endif
+#endif*/
 
 	ilInit(); // DevIL Initialize
 
@@ -478,7 +477,6 @@ int main(int argc, char **argv)
 
 	CSpeedServerManager SSManager;
 	DSManager dsManager;
-	CCheckServer checkServer;
 
 #ifdef __AUCTION__
 	AuctionManager auctionManager;
@@ -514,16 +512,6 @@ int main(int argc, char **argv)
 	//if game server
 	if (!g_bAuthServer)
 	{
-		if (!CCheckServer::Instance().CheckIP(g_szPublicIP)) {
-			char pszRevision[128] = "I don't care";	
-#ifdef _WIN32
-			fprintf(stderr, "[main] Check IP failed\n");
-#else 
-			strncpy (pszRevision,  __SVN_VERSION__, sizeof(pszRevision));
-#endif
-			LogManager::Instance().InvalidServerLog(LC_GetLocalType(), g_szPublicIP, pszRevision);
-		}
-
 		//hackshield
 		if (isHackShieldEnable)
 		{

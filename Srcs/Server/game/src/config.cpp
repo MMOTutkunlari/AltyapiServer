@@ -19,7 +19,6 @@
 #include "dev_log.h"
 #include "db.h"
 #include "skill_power.h"
-#include "check_server.h"
 
 using std::string;
 
@@ -1194,12 +1193,6 @@ void config_init(const string& st_localeServiceName)
 			else
 				g_BlockCharCreation = true;
 
-			continue;
-		}
-
-		TOKEN("server_key")
-		{
-			CCheckServer::Instance().AddServerKey(value_string);
 			continue;
 		}
 	}

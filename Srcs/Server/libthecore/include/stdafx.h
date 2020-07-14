@@ -116,6 +116,7 @@ inline double rint(double x)
 #include <sys/event.h>
 #endif
 
+#define typeof(x) __typeof__(x)
 #endif
 
 #ifndef false

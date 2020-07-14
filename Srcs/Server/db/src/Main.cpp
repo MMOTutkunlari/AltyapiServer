@@ -44,9 +44,9 @@ int g_log = 1;
 int g_iItemPriceListTableCacheFlushSeconds = 540;
 // END_OF_MYSHOP_PRICE_LIST
 
-#ifdef __FreeBSD__
+/*#ifdef __FreeBSD__
 extern const char * _malloc_options;
-#endif
+#endif*/
 
 extern void WriteVersion();
 
@@ -65,9 +65,9 @@ int main()
 {
 	WriteVersion();
 
-#ifdef __FreeBSD__
+/*#ifdef __FreeBSD__
 	_malloc_options = "A";
-#endif
+#endif*/
 
 	CConfig Config;
 	CNetPoller poller;

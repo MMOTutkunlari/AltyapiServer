@@ -1,5 +1,5 @@
 #CXX	= distcc i386-obrien-freebsd5-g++
-CXX	= g++
+CXX	= g++9
 
 PLATFORM = $(shell file /bin/ls | cut -d' ' -f3 | cut -d'-' -f1)
 
@@ -9,13 +9,9 @@ SVN_VERSION = $(shell svnversion -n -c . | cut -d':' -f2)
 
 BIN     = ./libsql.a
 
-ifeq ($(GCC_VERSION), 4)
-IFLAGS = -I../libmysql/7.x-5.1.35
-CFLAGS  = $(IFLAGS) -Wall -O2 -pipe -mtune=i686 -D_THREAD_SAFE -fno-exceptions 
-else
-IFLAGS = -I../libmysql/5.x-5.1.35
-CFLAGS  = $(IFLAGS) -Wall -O2 -pipe -mcpu=i686 -D_THREAD_SAFE -fno-exceptions 
-endif
+IFLAGS = -I/usr/local/include/
+CFLAGS  = $(IFLAGS) -m32 -Wall -O2 -pipe -D_THREAD_SAFE -fno-exceptions
+CFLAGS += -std=c++11
 
 LIBS =
 

@@ -28,10 +28,15 @@ OBJDIR
 Depend
 Depend.bak
 
+*.a
+*.dll
+*.lib
 *.o
+*.so
 
 db_r*
 game_r*
 
+*.pyc
 *.bak
 

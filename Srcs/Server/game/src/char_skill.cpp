@@ -3556,7 +3556,7 @@ bool CHARACTER::CheckSkillHitCount(const BYTE SkillID, const VID TargetVID)
 			return false;
 	}
 
-	boost::unordered_map<VID, size_t>::iterator iterTargetMap = rSkillUseInfo.TargetVIDMap.find(TargetVID);
+	targetMap::iterator iterTargetMap = rSkillUseInfo.TargetVIDMap.find(TargetVID);
 
 	if (rSkillUseInfo.TargetVIDMap.end() != iterTargetMap)
 	{
