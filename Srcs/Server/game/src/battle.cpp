@@ -695,8 +695,8 @@ int battle_hit(LPCHARACTER pkAttacker, LPCHARACTER pkVictim, int & iRetDam)
 
 DWORD GET_ATTACK_SPEED(LPCHARACTER ch)
 {
-    if (NULL == ch)
-        return 1000;
+	if (NULL == ch)
+		return 1000;
 
 	LPITEM item = ch->GetWear(WEAR_WEAPON);
 	DWORD default_bonus = SPEEDHACK_LIMIT_BONUS;    // 유두리 공속(기본 80)

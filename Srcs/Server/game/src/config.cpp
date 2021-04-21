@@ -449,7 +449,7 @@ void config_init(const string& st_localeServiceName)
 			const char * line = two_arguments(value_string, db_host[0], sizeof(db_host[0]), db_user[0], sizeof(db_user[0]));
 			line = two_arguments(line, db_pwd[0], sizeof(db_pwd[0]), db_db[0], sizeof(db_db[0]));
 
-			if (NULL != line[0])
+			if ('\0' != line[0])
 			{
 				char buf[256];
 				one_argument(line, buf, sizeof(buf));
@@ -473,7 +473,7 @@ void config_init(const string& st_localeServiceName)
 			const char * line = two_arguments(value_string, db_host[1], sizeof(db_host[1]), db_user[1], sizeof(db_user[1]));
 			line = two_arguments(line, db_pwd[1], sizeof(db_pwd[1]), db_db[1], sizeof(db_db[1]));
 
-			if (NULL != line[0])
+			if ('\0' != line[0])
 			{
 				char buf[256];
 				one_argument(line, buf, sizeof(buf));
@@ -497,7 +497,7 @@ void config_init(const string& st_localeServiceName)
 			const char * line = two_arguments(value_string, log_host, sizeof(log_host), log_user, sizeof(log_user));
 			line = two_arguments(line, log_pwd, sizeof(log_pwd), log_db, sizeof(log_db));
 
-			if (NULL != line[0])
+			if ('\0' != line[0])
 			{
 				char buf[256];
 				one_argument(line, buf, sizeof(buf));
@@ -520,6 +520,12 @@ void config_init(const string& st_localeServiceName)
 		TOKEN("WEB_AUTH")
 		{
 			const char * line = two_arguments(value_string, openid_host, sizeof(openid_host), openid_uri, sizeof(openid_uri));
+			
+			if ('\0' != line[0])
+			{
+				char buf[256];
+				one_argument(line, buf, sizeof(buf));
+			}
 
 			if (!*openid_host || !*openid_uri)
 			{
@@ -735,6 +741,7 @@ void config_init(const string& st_localeServiceName)
 			bool b_value = 0;
 			str_to_number(b_value, value_string);
 			g_bEmpireWhisper = !!b_value;
+			fprintf(stdout, "EMPIRE_WHISPER: %s\n", (g_bEmpireWhisper) ? "TRUE" : "FALSE");
 			continue;
 		}
 
@@ -860,6 +867,7 @@ void config_init(const string& st_localeServiceName)
 		TOKEN("item_count_limit")
 		{
 			str_to_number(g_bItemCountLimit, value_string);
+			fprintf(stderr, "ITEM_COUNT_LIMIT: %d\n", g_bItemCountLimit);
 			continue;
 		}
 		
@@ -878,42 +886,58 @@ void config_init(const string& st_localeServiceName)
 		TOKEN("shop_price_3x_disable")
 		{
 			g_bEmpireShopPriceTrippleDisable = true;
+			fprintf(stderr, "SHOT_PRICE_3X_DISABLE: TRUE\n");
 			continue;
 		}
 
 		TOKEN("shout_addon")
 		{
 			g_bShoutAddonEnable = true;
+			fprintf(stderr, "SHOUT_ADDON: TRUE\n");
 			continue;
 		}
 		
 		TOKEN("enable_all_mount_attack")
 		{
 			g_bAllMountAttack = true;
+			fprintf(stderr, "ENABLE_ALL_MOUNT_ATTACK: TRUE\n");
 			continue;
 		}		
 		
 		TOKEN("disable_change_attr_time")
 		{
 			g_bDisableItemBonusChangeTime = true;
+			fprintf(stderr, "DISABLE_CHANGE_ATTR_TIME: TRUE\n");
 			continue;
 		}
 		
 		TOKEN("disable_prism_item")
 		{
 			g_bDisablePrismNeed = true;
+			fprintf(stderr, "DISABLE_PRISM_ITEM: TRUE\n");
+			continue;
+		}
+
+		TOKEN("REQUIRE_PRISM_ITEM") //disable_prism_item
+		{
+			bool bFlag = 0;
+			str_to_number(bFlag, value_string);
+			g_bDisablePrismNeed = !bFlag;
+			fprintf(stdout, "REQUIRE_PRISM_ITEM: %s\n", (!g_bDisablePrismNeed) ? "TRUE" : "FALSE");
 			continue;
 		}
 		
 		TOKEN("global_shout")
 		{
 			g_bGlobalShoutEnable = true;
+			fprintf(stderr, "GLOBAL_SHOUT: TRUE\n");
 			continue;
 		}
 				
 		TOKEN("disable_emotion_mask")
 		{
 			g_bDisableEmotionMask = true;
+			fprintf(stderr, "DISABLE_EMOTION_MASK: TRUE\n");
 			continue;
 		}
 		
@@ -1160,7 +1184,7 @@ void config_init(const string& st_localeServiceName)
 		TOKEN("pk_protect_level")
 		{
 		    str_to_number(PK_PROTECT_LEVEL, value_string);
-		    fprintf(stderr, "PK_PROTECT_LEVEL: %d", PK_PROTECT_LEVEL);
+		    fprintf(stderr, "PK_PROTECT_LEVEL: %d\n", PK_PROTECT_LEVEL);
 		}
 
 		TOKEN("max_level")
@@ -1272,6 +1296,7 @@ void config_init(const string& st_localeServiceName)
 
 	LoadValidCRCList();
 	LoadStateUserCount();
+	LoadClientVersion();
 
 	CWarMapManager::instance().LoadWarMapInfo(NULL);
 
@@ -1331,7 +1356,7 @@ bool LoadClientVersion()
 	char * p = strchr(buf, '\n');
 	if (p) *p = '\0';
 
-	fprintf(stderr, "VERSION: \"%s\"\n", buf);
+	fprintf(stderr, "CLIENT VERSION: \"%s\"\n", buf);
 
 	g_stClientVersion = buf;
 	fclose(fp);

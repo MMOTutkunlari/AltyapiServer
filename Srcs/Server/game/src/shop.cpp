@@ -87,7 +87,7 @@ void CShop::SetShopItems(TShopItemTable * pTable, BYTE bItemCount)
 	m_pGrid->Clear();
 
 	m_itemVector.resize(SHOP_HOST_ITEM_MAX_NUM);
-	memset(&m_itemVector[0], 0, sizeof(SHOP_ITEM) * m_itemVector.size());
+	memset(static_cast<void*>(&m_itemVector[0]), 0, sizeof(SHOP_ITEM) * m_itemVector.size());
 
 	for (int i = 0; i < bItemCount; ++i)
 	{
@@ -204,7 +204,7 @@ int CShop::Buy(LPCHARACTER ch, BYTE pos)
 
 	SHOP_ITEM& r_item = m_itemVector[pos];
 
-	if (r_item.price <= 0)
+	if (r_item.price < 0)
 	{
 		LogManager::instance().HackLog("SHOP_BUY_GOLD_OVERFLOW", ch);
 		return SHOP_SUBHEADER_GC_NOT_ENOUGH_MONEY;

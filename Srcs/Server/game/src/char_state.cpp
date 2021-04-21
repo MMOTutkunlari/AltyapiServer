@@ -801,6 +801,7 @@ void CHARACTER::StateMove()
 
 		// 전투 중이면서 뛰는 중이면
 		if (!IsWalking() && !IsRiding())
+		{
 			if ((get_dword_time() - GetLastAttackTime()) < 20000)
 			{
 				StartAffectEvent();
@@ -827,6 +828,7 @@ void CHARACTER::StateMove()
 			{
 				StopStaminaConsume();
 			}
+		}
 	}
 	else
 	{
@@ -898,7 +900,7 @@ void CHARACTER::StateMove()
 
 				GotoState(m_stateIdle);
 
-				LPCHARACTER rider = GetRider();
+				//LPCHARACTER rider = GetRider();
 
 				m_dwStateDuration = PASSES_PER_SEC(number(1, 3));
 			}

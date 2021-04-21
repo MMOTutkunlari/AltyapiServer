@@ -109,8 +109,8 @@ void CBuffOnAttributes::ChangeBuffValue(BYTE bNewValue)
 		for (TMapAttr::iterator it = m_map_additional_attrs.begin(); it != m_map_additional_attrs.end(); it++)
 		{
 			int& sum_of_attr_value = it->second;
-			int old_value = sum_of_attr_value * m_bBuffValue / 100;
-			int new_value = sum_of_attr_value * bNewValue / 100;
+			//int old_value = sum_of_attr_value * m_bBuffValue / 100;
+			//int new_value = sum_of_attr_value * bNewValue / 100;
 			
 			m_pBuffOwner->ApplyPoint(it->first, -sum_of_attr_value * m_bBuffValue / 100);
 		}

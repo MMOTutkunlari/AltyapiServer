@@ -347,7 +347,7 @@ bool DSManager::ExtractDragonHeart(LPCHARACTER ch, LPITEM pItem, LPITEM pExtract
 
 	int idx = Gamble(vec_probs);
 
-	float sum = 0.f;
+	//float sum = 0.f;
 	if (-1 == idx)
 	{
 		sys_err ("Gamble is failed. ds_type(%d), grade_idx(%d)", ds_type, grade_idx);
@@ -432,7 +432,7 @@ bool DSManager::PullOut(LPCHARACTER ch, TItemPos DestCell, LPITEM& pItem, LPITEM
 	float fDice;
 	// 용혼석 추출 성공 여부 결정.
 	{
-		DWORD dwVnum = pItem->GetVnum(); 
+		//DWORD dwVnum = pItem->GetVnum(); 
 
 		BYTE ds_type, grade_idx, step_idx, strength_idx;
 		GetDragonSoulInfo(pItem->GetVnum(), ds_type, grade_idx, step_idx, strength_idx);
@@ -466,7 +466,7 @@ bool DSManager::PullOut(LPCHARACTER ch, TItemPos DestCell, LPITEM& pItem, LPITEM
 			}
 			else
 			{
-				sprintf(buf, "dice(%d) prob(%d)", fDice, fProb);
+				sprintf(buf, "dice(%d) prob(%d)", (int)fDice, (int)fProb);
 			}
 			LogManager::instance().ItemLog(ch, pItem, "DS_PULL_OUT_SUCCESS", buf);
 			ch->ChatPacket(CHAT_TYPE_INFO, LC_TEXT("용혼석 추출에 성공하였습니다."));
@@ -552,7 +552,7 @@ bool DSManager::DoRefineGrade(LPCHARACTER ch, TItemPos (&aItemPoses)[DRAGON_SOUL
 	int need_count = 0;
 	int fee = 0;
 	std::vector <float> vec_probs;
-	float prob_sum;
+	//float prob_sum;
 
 	BYTE ds_type, grade_idx, step_idx, strength_idx;
 	int result_grade;
@@ -760,7 +760,7 @@ bool DSManager::DoRefineStep(LPCHARACTER ch, TItemPos (&aItemPoses)[DRAGON_SOUL_
 		return false;
 	}
 	
-	float sum = 0.f;
+	//float sum = 0.f;
 
 	if (-1 == (result_step = Gamble(vec_probs)))
 	{

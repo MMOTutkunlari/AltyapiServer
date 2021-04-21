@@ -29,14 +29,15 @@ LIBDIR += -I../../../Extern/lib
 # Project Library
 INCDIR += -I/usr/local/include
 LIBDIR += -L../../libthecore/lib -L../../libsql -L../../libpoly -L../../libgame/lib
-LIBS += -lthecore -lsql -lpoly -lgame -lm
+LIBS += -lthecore -lsql -lpoly -lgame -lm -lc++
 
 # MySQL
 INCDIR += -I/usr/local/include/mysql
-LIBS += /usr/local/lib/mysql/libmysqlclient.a /usr/lib/libz.a
+LIBS += /usr/local/lib/mysql/libmysqlclient.a /usr/lib/libz.a /usr/local/lib/libzstd.a
 
 #OpenSSL
-LIBS += -lssl -lcrypto
+LIBDIR += -L/usr/local/lib 
+LIBS += -lunwind -lssl -lcrypto
 
 
 SRCS =	Config.cpp NetBase.cpp Peer.cpp PeerBase.cpp Main.cpp Lock.cpp DBManager.cpp \

@@ -849,7 +849,7 @@ ACMD(do_mob_ld)
 	}
 
 	int dir = 1;
-	long x,y;
+	long x=0,y=0;
 
 	if (*arg2)
 		str_to_number(x, arg2);
@@ -2541,7 +2541,7 @@ USAGE:
  */
 ACMD(do_priv_guild)
 {
-	static const char msg[] = { '\0' };
+	static const char msg[] = { };
 
 	char arg1[256];
 	one_argument(argument, arg1, sizeof(arg1));
@@ -3923,7 +3923,7 @@ ACMD(do_set_stat)
 
 	two_arguments (argument, szName, sizeof (szName), szChangeAmount, sizeof(szChangeAmount));
 
-	if (*szName == NULL || *szChangeAmount == '\0')
+	if (*szName == '\0' || *szChangeAmount == '\0')
 	{
 		ch->ChatPacket (CHAT_TYPE_INFO, "Invalid argument.");
 		return;
@@ -3965,7 +3965,7 @@ ACMD(do_set_stat)
 		str_to_number(nChangeAmount, szChangeAmount);
 		int nPoint = nCurPoint + nChangeAmount;
 		
-		int n;
+		int n = -1;
 		switch (subcmd)
 		{
 		case POINT_HT:
@@ -4023,6 +4023,9 @@ ACMD(do_set_stat)
 		tch->ComputePoints();
 
 		const char* stat_name[4] = {"con", "int", "str", "dex"};
+		
+		if (n == -1)
+			return;
 
 		ch->ChatPacket(CHAT_TYPE_INFO, "%s's %s change %d to %d", szName, stat_name[n], nCurPoint, nPoint);
 	}
@@ -4345,7 +4348,7 @@ ACMD (do_use_item)
 
 	one_argument (argument, arg1, sizeof (arg1));
 
-	int cell;
+	int cell = 0;
 	str_to_number(cell, arg1);
 	
 	LPITEM item = ch->GetInventoryItem(cell);

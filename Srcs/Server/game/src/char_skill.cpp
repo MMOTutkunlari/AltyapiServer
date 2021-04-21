@@ -2486,7 +2486,7 @@ bool CHARACTER::UseSkill(DWORD dwVnum, LPCHARACTER pkVictim, bool bUseGrandMaste
 
 	if (pkSk->IsChargeSkill())
 	{
-		if (IsAffectFlag(AFF_TANHWAN_DASH) || pkVictim && pkVictim != this)
+		if (IsAffectFlag(AFF_TANHWAN_DASH) || (pkVictim && pkVictim != this))
 		{
 			if (!pkVictim)
 				return false;
@@ -2592,7 +2592,7 @@ bool CHARACTER::UseSkill(DWORD dwVnum, LPCHARACTER pkVictim, bool bUseGrandMaste
 	if (IS_SET(pkSk->dwFlag, SKILL_FLAG_SELFONLY))
 		pkVictim = this;
 
-	if (pkSk->dwVnum == SKILL_MUYEONG || pkSk->IsChargeSkill() && !IsAffectFlag(AFF_TANHWAN_DASH) && !pkVictim)
+	if (pkSk->dwVnum == SKILL_MUYEONG || (pkSk->IsChargeSkill() && !IsAffectFlag(AFF_TANHWAN_DASH) && !pkVictim))
 	{
 		// 처음 사용하는 무영진은 자신에게 Affect를 붙인다.
 		pkVictim = this;

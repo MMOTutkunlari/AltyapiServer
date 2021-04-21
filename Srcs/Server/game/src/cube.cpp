@@ -713,7 +713,7 @@ void Cube_MakeCubeInformationText()
 	// 이제 정리된 큐브 결과 및 재료들의 정보로 클라이언트에 보내 줄 정보로 변환함.
 	for (TCubeMapByNPC::iterator iter = cube_info_map.begin(); cube_info_map.end() != iter; ++iter)
 	{
-		const DWORD& npcVNUM = iter->first;
+		//const DWORD& npcVNUM = iter->first;
 		TCubeResultList& resultList = iter->second;
 
 		for (TCubeResultList::iterator resultIter = resultList.begin(); resultList.end() != resultIter; ++resultIter)

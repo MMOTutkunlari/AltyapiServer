@@ -497,7 +497,7 @@ namespace quest
 				if ( i != 0 ) {
 					//2012.05.14 <김용욱> : 퀘스트 매니저의 m_pCurrentPC가 바뀌는 경우가 발생하여,
 					//두개 이상의 스크립트를 실행시, 두번째 부터는 퀘스트 매니저의 PC 값을 새로 셋팅한다.
-					PC * pPC = CQuestManager::instance().GetPC(pc.GetID());		
+					//PC * pPC = CQuestManager::instance().GetPC(pc.GetID());		
 				}
 				
 				CQuestManager::ExecuteQuestScript(pc, fMatch.vdwQuesIndices[i], fMatch.viPCStates[i],

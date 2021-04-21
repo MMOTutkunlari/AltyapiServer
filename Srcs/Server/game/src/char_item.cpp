@@ -678,6 +678,8 @@ bool CHARACTER::IsEmptyItemGrid(TItemPos Cell, BYTE bSize, int iExceptionCell) c
 			}
 		}
 	}
+	
+	return false;
 }
 
 int CHARACTER::GetEmptyInventory(BYTE size) const
@@ -1668,7 +1670,7 @@ int CalculateConsumeSP(LPCHARACTER lpChar)
 bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 {
 	int iLimitRealtimeStartFirstUseFlagIndex = -1;
-	int iLimitTimerBasedOnWearFlagIndex = -1;
+	//int iLimitTimerBasedOnWearFlagIndex = -1;
 
 	WORD wDestCell = DestCell.cell;
 	BYTE bDestInven = DestCell.window_type;
@@ -1691,7 +1693,7 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 				break;
 
 			case LIMIT_TIMER_BASED_ON_WEAR:
-				iLimitTimerBasedOnWearFlagIndex = i;
+				//iLimitTimerBasedOnWearFlagIndex = i;
 				break;
 		}
 	}
@@ -1964,7 +1966,7 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 					DWORD dwBoxVnum = item2->GetVnum();
 					std::vector <DWORD> dwVnums;
 					std::vector <DWORD> dwCounts;
-					std::vector <LPITEM> item_gets(NULL);
+					std::vector <LPITEM> item_gets(0);
 					int count = 0;
 
 					if (GiveItemFromSpecialItemGroup(dwBoxVnum, dwVnums, dwCounts, item_gets, count))
@@ -2028,7 +2030,7 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 				DWORD dwBoxVnum = item->GetVnum();
 				std::vector <DWORD> dwVnums;
 				std::vector <DWORD> dwCounts;
-				std::vector <LPITEM> item_gets(NULL);
+				std::vector <LPITEM> item_gets(0);
 				int count = 0;
 
 				if (dwBoxVnum == 50033 && LC_IsYMIR()) // 알수없는 상자
@@ -2386,11 +2388,11 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 								{
 									if (item->GetVnum() == DRAGON_HEART_VNUM)
 									{
-										sprintf(buf, "Inc %ds by item{VN:%d SOC%d:%d}", ret, item->GetVnum(), ITEM_SOCKET_CHARGING_AMOUNT_IDX, item->GetSocket(ITEM_SOCKET_CHARGING_AMOUNT_IDX));
+										sprintf(buf, "Inc %ds by item{VN:%d SOC%d:%ld}", ret, item->GetVnum(), ITEM_SOCKET_CHARGING_AMOUNT_IDX, item->GetSocket(ITEM_SOCKET_CHARGING_AMOUNT_IDX));
 									}
 									else
 									{
-										sprintf(buf, "Inc %ds by item{VN:%d VAL%d:%d}", ret, item->GetVnum(), ITEM_VALUE_CHARGING_AMOUNT_IDX, item->GetValue(ITEM_VALUE_CHARGING_AMOUNT_IDX));
+										sprintf(buf, "Inc %ds by item{VN:%d VAL%d:%ld}", ret, item->GetVnum(), ITEM_VALUE_CHARGING_AMOUNT_IDX, item->GetValue(ITEM_VALUE_CHARGING_AMOUNT_IDX));
 									}
 
 									ChatPacket(CHAT_TYPE_INFO, LC_TEXT("%d초 만큼 충전되었습니다."), ret);
@@ -2402,11 +2404,11 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 								{
 									if (item->GetVnum() == DRAGON_HEART_VNUM)
 									{
-										sprintf(buf, "No change by item{VN:%d SOC%d:%d}", item->GetVnum(), ITEM_SOCKET_CHARGING_AMOUNT_IDX, item->GetSocket(ITEM_SOCKET_CHARGING_AMOUNT_IDX));
+										sprintf(buf, "No change by item{VN:%d SOC%d:%ld}", item->GetVnum(), ITEM_SOCKET_CHARGING_AMOUNT_IDX, item->GetSocket(ITEM_SOCKET_CHARGING_AMOUNT_IDX));
 									}
 									else
 									{
-										sprintf(buf, "No change by item{VN:%d VAL%d:%d}", item->GetVnum(), ITEM_VALUE_CHARGING_AMOUNT_IDX, item->GetValue(ITEM_VALUE_CHARGING_AMOUNT_IDX));
+										sprintf(buf, "No change by item{VN:%d VAL%d:%ld}", item->GetVnum(), ITEM_VALUE_CHARGING_AMOUNT_IDX, item->GetValue(ITEM_VALUE_CHARGING_AMOUNT_IDX));
 									}
 
 									ChatPacket(CHAT_TYPE_INFO, LC_TEXT("충전할 수 없습니다."));
@@ -2433,7 +2435,7 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 								if (ret)
 								{
 									ChatPacket(CHAT_TYPE_INFO, LC_TEXT("%d초 만큼 충전되었습니다."), ret);
-									sprintf(buf, "Increase %ds by item{VN:%d VAL%d:%d}", ret, item->GetVnum(), ITEM_VALUE_CHARGING_AMOUNT_IDX, item->GetValue(ITEM_VALUE_CHARGING_AMOUNT_IDX));
+									sprintf(buf, "Increase %ds by item{VN:%d VAL%d:%ld}", ret, item->GetVnum(), ITEM_VALUE_CHARGING_AMOUNT_IDX, item->GetValue(ITEM_VALUE_CHARGING_AMOUNT_IDX));
 									LogManager::instance().ItemLog(this, item, "DS_CHARGING_SUCCESS", buf);
 									item->SetCount(item->GetCount() - 1);
 									return true;
@@ -2441,7 +2443,7 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 								else
 								{
 									ChatPacket(CHAT_TYPE_INFO, LC_TEXT("충전할 수 없습니다."));
-									sprintf(buf, "No change by item{VN:%d VAL%d:%d}", item->GetVnum(), ITEM_VALUE_CHARGING_AMOUNT_IDX, item->GetValue(ITEM_VALUE_CHARGING_AMOUNT_IDX));
+									sprintf(buf, "No change by item{VN:%d VAL%d:%ld}", item->GetVnum(), ITEM_VALUE_CHARGING_AMOUNT_IDX, item->GetValue(ITEM_VALUE_CHARGING_AMOUNT_IDX));
 									LogManager::instance().ItemLog(this, item, "DS_CHARGING_FAILED", buf);
 									return false;
 								}
@@ -3611,12 +3613,12 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 									DWORD dwBoxVnum = item->GetVnum();
 									std::vector <DWORD> dwVnums;
 									std::vector <DWORD> dwCounts;
-									std::vector <LPITEM> item_gets(NULL);
+									std::vector <LPITEM> item_gets(0);
 									int count = 0;
 
 
-									if (item->GetVnum() == ITEM_VALENTINE_ROSE && SEX_MALE==GET_SEX(this) ||
-										item->GetVnum() == ITEM_VALENTINE_CHOCOLATE && SEX_FEMALE==GET_SEX(this))
+									if ((item->GetVnum() == ITEM_VALENTINE_ROSE && SEX_MALE==GET_SEX(this)) ||
+										(item->GetVnum() == ITEM_VALENTINE_CHOCOLATE && SEX_FEMALE==GET_SEX(this)))
 									{
 										// 성별이 맞지않아 쓸 수 없다.
 										ChatPacket(CHAT_TYPE_INFO, LC_TEXT("성별이 맞지않아 이 아이템을 열 수 없습니다."));
@@ -3635,12 +3637,12 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 									DWORD dwBoxVnum = item->GetVnum();
 									std::vector <DWORD> dwVnums;
 									std::vector <DWORD> dwCounts;
-									std::vector <LPITEM> item_gets(NULL);
+									std::vector <LPITEM> item_gets(0);
 									int count = 0;
 
 
-									if (item->GetVnum() == ITEM_WHITEDAY_CANDY && SEX_MALE==GET_SEX(this) ||
-										item->GetVnum() == ITEM_WHITEDAY_ROSE && SEX_FEMALE==GET_SEX(this))
+									if ((item->GetVnum() == ITEM_WHITEDAY_CANDY && SEX_MALE==GET_SEX(this)) ||
+										(item->GetVnum() == ITEM_WHITEDAY_ROSE && SEX_FEMALE==GET_SEX(this)))
 									{
 										// 성별이 맞지않아 쓸 수 없다.
 										ChatPacket(CHAT_TYPE_INFO, LC_TEXT("성별이 맞지않아 이 아이템을 열 수 없습니다."));
@@ -3658,7 +3660,7 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 									DWORD dwBoxVnum = 50011;
 									std::vector <DWORD> dwVnums;
 									std::vector <DWORD> dwCounts;
-									std::vector <LPITEM> item_gets(NULL);
+									std::vector <LPITEM> item_gets(0);
 									int count = 0;
 
 									if (GiveItemFromSpecialItemGroup(dwBoxVnum, dwVnums, dwCounts, item_gets, count))
@@ -5153,8 +5155,8 @@ bool CHARACTER::UseItem(TItemPos Cell, TItemPos DestCell)
 {
 	WORD wCell = Cell.cell;
 	BYTE window_type = Cell.window_type;
-	WORD wDestCell = DestCell.cell;
-	BYTE bDestInven = DestCell.window_type;
+	//WORD wDestCell = DestCell.cell;
+	//BYTE bDestInven = DestCell.window_type;
 	LPITEM item;
 
 	if (!CanHandleItem())
@@ -5299,7 +5301,7 @@ bool CHARACTER::UseItem(TItemPos Cell, TItemPos DestCell)
 	}
 
 	//보따리 비단 사용시 거래창 제한 체크 
-	if (item->GetVnum() == 50200 | item->GetVnum() == 71049)
+	if (item->GetVnum() == 50200 || item->GetVnum() == 71049)
 	{
 		if (GetExchange() || GetMyShop() || GetShopOwner() || IsOpenSafebox() || IsCubeOpen())
 		{
@@ -6128,7 +6130,7 @@ bool CHARACTER::EquipItem(LPITEM item, int iCandidateCell)
 			if (0 == item->GetSocket(1))
 			{
 				// 사용가능시간은 Default 값으로 Limit Value 값을 사용하되, Socket0에 값이 있으면 그 값을 사용하도록 한다. (단위는 초)
-				long duration = (0 != item->GetSocket(0)) ? item->GetSocket(0) : item->GetProto()->aLimits[item->GetProto()->cLimitRealTimeFirstUseIndex].lValue;
+				long duration = (0 != item->GetSocket(0)) ? item->GetSocket(0) : item->GetProto()->aLimits[(unsigned char)(item->GetProto()->cLimitRealTimeFirstUseIndex)].lValue;
 
 				if (0 == duration)
 					duration = 60 * 60 * 24 * 7;
@@ -6259,6 +6261,7 @@ void CHARACTER::BuffOnAttr_ValueChange(BYTE bType, BYTE bOldValue, BYTE bNewValu
 				}
 				break;
 			default:
+				pBuff = NULL;
 				break;
 			}
 			m_map_buff_on_attrs.insert(TMapBuffOnAttrs::value_type(bType, pBuff));
@@ -6267,7 +6270,8 @@ void CHARACTER::BuffOnAttr_ValueChange(BYTE bType, BYTE bOldValue, BYTE bNewValu
 		else
 			pBuff = it->second;
 			
-		pBuff->On(bNewValue);
+		if (pBuff != NULL)
+			pBuff->On(bNewValue);
 	}
 	else
 	{
@@ -7388,8 +7392,8 @@ bool CHARACTER::IsValidItemPosition(TItemPos Pos) const
 bool CHARACTER::CanEquipNow(const LPITEM item, const TItemPos& srcCell, const TItemPos& destCell) /*const*/
 {
 	const TItemTable* itemTable = item->GetProto();
-	BYTE itemType = item->GetType();
-	BYTE itemSubType = item->GetSubType();
+	//BYTE itemType = item->GetType();
+	//BYTE itemSubType = item->GetSubType();
 
 	switch (GetJob())
 	{

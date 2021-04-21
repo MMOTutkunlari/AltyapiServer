@@ -1240,7 +1240,7 @@ void DBManager::AnalyzeReturnQuery(SQLMsg * pMsg)
 					sys_log(0, "[AUTH_BRAZIL] : Succeed to create a new account %s", pinfo->login) ;
 
 					ReturnQuery(QID_AUTH_LOGIN, qi->dwIdent, pinfo,
-							"SELECT PASSWORD('%s'),password,securitycode,social_id,id,status,availDt - NOW() > 0,"
+							"SELECT CONCAT('*', UPPER(SHA1(UNHEX(SHA1('%s'))))),password,securitycode,social_id,id,status,availDt - NOW() > 0,"
 							"UNIX_TIMESTAMP(silver_expire),"
 							"UNIX_TIMESTAMP(gold_expire),"
 							"UNIX_TIMESTAMP(safebox_expire),"

@@ -6,7 +6,7 @@
 #include "../../libthecore/include/xdirent.h"
 #endif
 
-CClientPackageCryptInfo::CClientPackageCryptInfo() : m_pSerializedCryptKeyStream(NULL), m_nCryptKeyPackageCnt(0)
+CClientPackageCryptInfo::CClientPackageCryptInfo() : m_nCryptKeyPackageCnt(0), m_pSerializedCryptKeyStream(NULL)
 {
 }
 

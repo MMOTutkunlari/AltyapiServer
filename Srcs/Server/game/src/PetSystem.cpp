@@ -243,7 +243,7 @@ bool CPetActor::_UpdateFollowAI()
 	float	RESPAWN_DISTANCE = 4500.f;			// 이 거리 이상 멀어지면 주인 옆으로 소환함.
 	int		APPROACH = 200;						// 접근 거리
 
-	bool bDoMoveAlone = true;					// 캐릭터와 가까이 있을 때 혼자 여기저기 움직일건지 여부 -_-;
+	//bool bDoMoveAlone = true;					// 캐릭터와 가까이 있을 때 혼자 여기저기 움직일건지 여부 -_-;
 	bool bRun = false;							// 뛰어야 하나?
 
 	DWORD currentTime = get_dword_time();
@@ -550,6 +550,9 @@ CPetActor* CPetSystem::Summon(DWORD mobVnum, LPITEM pSummonItem, const char* pet
 	}
 
 	DWORD petVID = petActor->Summon(petName, pSummonItem, bSpawnFar);
+	
+	if (!petVID)
+		sys_err("[CPetSystem::Summon] Null petVID. (petVID: %d)", petVID);
 
 	if (NULL == m_pkPetSystemUpdateEvent)
 	{

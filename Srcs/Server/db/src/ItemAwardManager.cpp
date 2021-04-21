@@ -59,7 +59,8 @@ void ItemAwardManager::Load(SQLMsg * pMsg)
 			char cmdStr[100] = "";	//why콜룸에서 읽은 값을 임시 문자열에 복사해둠
 			strcpy(cmdStr,whyStr);	//명령어 얻는 과정에서 토큰쓰면 원본도 토큰화 되기 때문
 			char command[20] = "";
-			strcpy(command,CClientManager::instance().GetCommand(cmdStr));	// command 얻기
+			//strcpy(command,CClientManager::instance().GetCommand(cmdStr));	// command 얻기
+			CClientManager::instance().GetCommand(cmdStr, command);
 			//sys_err("%d,  %s",pItemAward->dwID,command);
 			if( !(strcmp(command,"GIFT") ))	// command 가 GIFT이면
 			{

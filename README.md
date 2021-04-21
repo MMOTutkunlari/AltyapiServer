@@ -7,8 +7,8 @@ Rehbere bakmak isterseniz: https://www.mmotutkunlari.com/konu/metin2-sifirdan-al
 ### Nasıl Kurulur? ####
 Şuan için bu dosyalar Freebsd 12.1 veya 11.x ile build edilmektedir.
 #### Kurulması Gereken Paketler ####
-* mysql56-client
-* mysql56-server
+* mysql80-client
+* mysql80-server
 * openssl
 * python
 * git

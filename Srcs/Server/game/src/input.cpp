@@ -268,6 +268,12 @@ int CInputHandshake::Analyze(LPDESC d, BYTE bHeader, const char * c_pData)
 
 	if (bHeader == HEADER_CG_TEXT)
 	{
+		if (IsEmptyAdminPage() || !IsAdminPage(inet_ntoa(d->GetAddr().sin_addr))) // block if adminpage is not set or if not admin
+        {
+            sys_log(0, "SOCKET_CMD: BLOCK FROM(%s)", d->GetHostName());
+            return -1;
+        }
+		
 		++c_pData;
 		const char * c_pSep;
 

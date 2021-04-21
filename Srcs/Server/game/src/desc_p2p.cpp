@@ -2,6 +2,7 @@
 #include "desc_p2p.h"
 #include "protocol.h"
 #include "p2p.h"
+#include "config.h"
 
 DESC_P2P::~DESC_P2P()
 {
@@ -42,6 +43,13 @@ bool DESC_P2P::Setup(LPFDWATCH fdw, socket_t fd, const char * host, WORD wPort)
 	fdwatch_add_fd(m_lpFdw, m_sock, this, FDW_READ, false);
 
 	m_iMinInputBufferLen = 1024 * 1024;
+	
+	if (strcmp(host, g_szPublicIP))
+    {
+        sys_log(0, "SYSTEM: new p2p connection from [%s] to [%s] fd: %d BLOCKED", host, g_szPublicIP, m_sock);
+        SetPhase(PHASE_CLOSE);
+        return true;
+    }
 
 	SetPhase(PHASE_P2P);
 

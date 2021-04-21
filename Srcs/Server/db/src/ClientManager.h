@@ -163,7 +163,7 @@ class CClientManager : public CNetBase, public singleton<CClientManager>
 
 	void			SendNotice(const char * c_pszFormat, ...);
 
-	char*			GetCommand(char* str);					//독일선물기능에서 명령어 얻는 함수
+	char*			GetCommand(char* str, char* command);					//독일선물기능에서 명령어 얻는 함수
 	void			ItemAward(CPeer * peer, char* login);	//독일 선물 기능
 
     protected:

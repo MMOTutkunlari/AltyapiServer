@@ -15,11 +15,11 @@ OBJDIR = OBJDIR
 $(shell if [ ! -d $(OBJDIR) ]; then mkdir $(OBJDIR); fi)
 
 # Standard Setting
-LIBS = -pthread -lm -lmd
+LIBS = -pthread -lm -lmd -lc++
 # Removed -fno-rtti 
 CFLAGS = -g -Wall -O2 -m32 -pipe -fexceptions -fno-strict-aliasing -pthread -D_THREAD_SAFE -DNDEBUG -D__SVN_VERSION__=\"$(SVN_VERSION)\"
 CFLAGS += -Wno-deprecated-declarations -Wno-format-truncation -Wno-sign-compare -Wno-nonnull-compare
-CFLAGS += -Wno-int-in-bool-context
+CFLAGS += -Wno-int-in-bool-context -Wno-stringop-truncation -Wno-address
 CFLAGS += -fstack-protector-all
 CXXFLAGS = -std=c++11 -Wl,-rpath=/usr/local/lib/gcc9
 
@@ -42,7 +42,7 @@ LIBS += ../../../Extern/lib/libIL.a\
 
 # MySQL
 INCDIR += -I/usr/local/include/mysql
-LIBS += /usr/local/lib/mysql/libmysqlclient.a /usr/lib/libz.a
+LIBS += /usr/local/lib/mysql/libmysqlclient.a /usr/lib/libz.a /usr/local/lib/libzstd.a
 
 # Miscellaneous external libraries
 INCDIR += -I../../../Extern/include
@@ -59,7 +59,8 @@ INCDIR += -I../../libxtrap/include
 
 # openssl
 INCDIR += -I/usr/include
-LIBS += -lssl -lcrypto
+LIBDIR += -L/usr/local/lib
+LIBS += -lunwind -lssl -lcrypto
 
 # Project Library
 INCDIR += -I../../liblua/include

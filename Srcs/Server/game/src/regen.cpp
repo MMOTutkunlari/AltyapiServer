@@ -426,9 +426,9 @@ bool regen_do(const char* filename, long lMapIndex, int base_x, int base_y, LPDU
 
 	while (true)
 	{
-		REGEN tmp;
+		REGEN tmp{};
 
-		memset(&tmp, 0, sizeof(tmp));
+		//memset(&tmp, 0, sizeof(tmp));
 
 		if (!read_line(fp, &tmp))
 			break;
@@ -441,7 +441,8 @@ bool regen_do(const char* filename, long lMapIndex, int base_x, int base_y, LPDU
 			if (!bOnce)
 			{
 				regen = M2_NEW REGEN;
-				memcpy(regen, &tmp, sizeof(REGEN));
+				*regen = tmp;
+				//memcpy(regen, &tmp, sizeof(REGEN));
 			}
 			else
 				regen = &tmp;
@@ -526,9 +527,9 @@ bool regen_load_in_file(const char* filename, long lMapIndex, int base_x, int ba
 
 	while (true)
 	{
-		REGEN tmp;
+		REGEN tmp{};
 
-		memset(&tmp, 0, sizeof(tmp));
+		//memset(&tmp, 0, sizeof(tmp));
 
 		if (!read_line(fp, &tmp))
 			break;
@@ -620,9 +621,9 @@ bool regen_load(const char* filename, long lMapIndex, int base_x, int base_y)
 
 	while (true)
 	{
-		REGEN tmp;
+		REGEN tmp{};
 
-		memset(&tmp, 0, sizeof(tmp));
+		//memset(&tmp, 0, sizeof(tmp));
 
 		if (!read_line(fp, &tmp))
 			break;
@@ -638,7 +639,8 @@ bool regen_load(const char* filename, long lMapIndex, int base_x, int base_y)
 			}
 
 			regen = M2_NEW REGEN;
-			memcpy(regen, &tmp, sizeof(REGEN));
+			*regen = tmp;
+			//memcpy(regen, &tmp, sizeof(REGEN));
 			INSERT_TO_TW_LIST(regen, regen_list, prev, next);
 
 			regen->lMapIndex = lMapIndex;

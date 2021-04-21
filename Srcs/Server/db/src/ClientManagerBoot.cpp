@@ -294,8 +294,8 @@ bool CClientManager::InitializeShopTable()
 
 		if (map_shop.end() == map_shop.find(iShopVnum))
 		{
-			shop_table = new TShopTable;
-			memset(shop_table, 0, sizeof(TShopTable));
+			shop_table = new TShopTable{};
+			//memset(shop_table, 0, sizeof(TShopTable));
 			shop_table->dwVnum	= iShopVnum;
 
 			map_shop[iShopVnum] = shop_table;
@@ -706,9 +706,9 @@ bool CClientManager::InitializeItemAttrTable()
 
 	while ((data = mysql_fetch_row(pRes->pSQLResult)))
 	{
-		TItemAttrTable t;
+		TItemAttrTable t{};
 
-		memset(&t, 0, sizeof(TItemAttrTable));
+		//memset(&t, 0, sizeof(TItemAttrTable));
 
 		int col = 0;
 
@@ -780,9 +780,9 @@ bool CClientManager::InitializeItemRareTable()
 
 	while ((data = mysql_fetch_row(pRes->pSQLResult)))
 	{
-		TItemAttrTable t;
+		TItemAttrTable t{};
 
-		memset(&t, 0, sizeof(TItemAttrTable));
+		//memset(&t, 0, sizeof(TItemAttrTable));
 
 		int col = 0;
 
@@ -1067,7 +1067,7 @@ bool CClientManager::MirrorMobTableIntoDB()
 			snprintf(query, sizeof(query),
 				"replace into mob_proto%s "
 				"("
-				"vnum, name, type, rank, battle_type, level, size, ai_flag, setRaceFlag, setImmuneFlag, "
+				"vnum, name, type, `rank`, battle_type, level, size, ai_flag, setRaceFlag, setImmuneFlag, "
 				"on_click, empire, drop_item, resurrection_vnum, folder, "
 				"st, dx, ht, iq, damage_min, damage_max, max_hp, regen_cycle, regen_percent, exp, "
 				"gold_min, gold_max, def, attack_speed, move_speed, aggressive_hp_pct, aggressive_sight, attack_range, polymorph_item, "
@@ -1119,7 +1119,7 @@ bool CClientManager::MirrorMobTableIntoDB()
 			snprintf(query, sizeof(query),
 				"replace into mob_proto%s "
 				"("
-				"vnum, name, %s, type, rank, battle_type, level, size, ai_flag, setRaceFlag, setImmuneFlag, "
+				"vnum, name, %s, type, `rank`, battle_type, level, size, ai_flag, setRaceFlag, setImmuneFlag, "
 				"on_click, empire, drop_item, resurrection_vnum, folder, "
 				"st, dx, ht, iq, damage_min, damage_max, max_hp, regen_cycle, regen_percent, exp, "
 				"gold_min, gold_max, def, attack_speed, move_speed, aggressive_hp_pct, aggressive_sight, attack_range, polymorph_item, "

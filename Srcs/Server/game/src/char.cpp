@@ -2868,7 +2868,7 @@ int CHARACTER::GetPolymorphPoint(BYTE type) const
 			switch (type)
 			{
 				case POINT_ST:
-					if (GetJob() == JOB_SHAMAN || GetJob() == JOB_SURA && GetSkillGroup() == 2)
+					if (GetJob() == JOB_SHAMAN || (GetJob() == JOB_SURA && GetSkillGroup() == 2))
 						return pMob->m_table.bStr * iPower / 100 + GetPoint(POINT_IQ);
 					return pMob->m_table.bStr * iPower / 100 + GetPoint(POINT_ST);
 
@@ -5113,7 +5113,7 @@ void CHARACTER::SetTarget(LPCHARACTER pkChrTarget)
 
 		p.dwVID	= m_pkChrTarget->GetVID();
 
-		if (m_pkChrTarget->IsPC() && !m_pkChrTarget->IsPolymorphed() || m_pkChrTarget->GetMaxHP() <= 0)
+		if ((m_pkChrTarget->IsPC() && !m_pkChrTarget->IsPolymorphed()) || m_pkChrTarget->GetMaxHP() <= 0)
 			p.bHPPercent = 0;
 		else 
 		{
@@ -6298,7 +6298,7 @@ void CHARACTER::SendEquipment(LPCHARACTER ch)
 
 bool CHARACTER::CanSummon(int iLeaderShip)
 {
-	return (iLeaderShip >= 20 || iLeaderShip >= 12 && m_dwLastDeadTime + 180 > get_dword_time());
+	return (iLeaderShip >= 20 || (iLeaderShip >= 12 && m_dwLastDeadTime + 180 > get_dword_time()));
 }
 
 

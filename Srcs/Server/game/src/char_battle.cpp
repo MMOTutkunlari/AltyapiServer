@@ -773,6 +773,7 @@ void CHARACTER::Reward(bool bItemDrop)
 	if (pkAttacker->IsPC())
 	{
 		if (GetLevel() - pkAttacker->GetLevel() >= -10)
+		{
 			if (pkAttacker->GetRealAlignment() < 0)
 			{
 				if (pkAttacker->IsEquipUniqueItem(UNIQUE_ITEM_FASTER_ALIGNMENT_UP_BY_KILL))
@@ -782,6 +783,7 @@ void CHARACTER::Reward(bool bItemDrop)
 			}
 			else
 				pkAttacker->UpdateAlignment(2);
+		}
 
 		pkAttacker->SetQuestNPCID(GetVID());
 		quest::CQuestManager::instance().Kill(pkAttacker->GetPlayerID(), GetRaceNum());

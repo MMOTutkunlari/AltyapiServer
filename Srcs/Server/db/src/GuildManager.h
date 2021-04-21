@@ -29,7 +29,7 @@ struct TGuildDeclareInfo
 
 	bool operator < (const TGuildDeclareInfo& r) const
 	{
-		return (dwGuildID[0] < r.dwGuildID[0]) || (dwGuildID[0] == r.dwGuildID[0]) && (dwGuildID[1] < r.dwGuildID[1]);
+		return (dwGuildID[0] < r.dwGuildID[0]) || ((dwGuildID[0] == r.dwGuildID[0]) && (dwGuildID[1] < r.dwGuildID[1]));
 	}
 
 	TGuildDeclareInfo& operator = (const TGuildDeclareInfo& r)
@@ -63,7 +63,7 @@ struct TGuildWaitStartInfo
 
 	bool operator < (const TGuildWaitStartInfo& r) const
 	{
-		return (GID[0] < r.GID[0]) || (GID[0] == r.GID[0]) && (GID[1] < r.GID[1]);
+		return (GID[0] < r.GID[0]) || ((GID[0] == r.GID[0]) && (GID[1] < r.GID[1]));
 	}
 };
 
@@ -99,7 +99,7 @@ struct TGuildSkillUsed
 
 inline bool operator < (const TGuildSkillUsed& a, const TGuildSkillUsed& b)
 {
-    return (a.GID < b.GID) || (a.GID == b.GID) && (a.dwSkillVnum < b.dwSkillVnum);
+    return (a.GID < b.GID) || ((a.GID == b.GID) && (a.dwSkillVnum < b.dwSkillVnum));
 }
 
 typedef struct SGuild

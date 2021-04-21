@@ -123,7 +123,7 @@ void AuctionManager::LoadAuctionItem()
 		"attrtype4, attrvalue4, "
 		"attrtype5, attrvalue5, "
 		"attrtype6, attrvalue6  "
-		"FROM item WHERE window = 'AUCTION'");
+		"FROM item WHERE `window` = 'AUCTION'");
 
 	SQLMsg *msg = CDBManager::instance().DirectQuery(szQuery);
 

@@ -75,7 +75,7 @@ namespace quest
 			return false;
 
 		PC * pPC = CQuestManager::instance().GetPCForce(ch->GetPlayerID());
-		bool returnBool;
+		bool returnBool = false;
 		if (pPC)
 		{
 			int flagValue = pPC->GetFlag(flagname);

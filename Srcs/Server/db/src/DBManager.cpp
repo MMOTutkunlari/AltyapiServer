@@ -172,6 +172,7 @@ void CDBManager::SetLocale(const char * szLocale)
 		m_mainSQL[n]->SetLocale(stLocale);
 		m_directSQL[n]->SetLocale(stLocale);
 		m_asyncSQL[n]->SetLocale(stLocale);
+		sleep(1);
 	}
 	sys_log(0, "End setlocale %s", szLocale);
 }

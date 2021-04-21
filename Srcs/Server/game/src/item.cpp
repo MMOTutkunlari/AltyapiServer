@@ -24,8 +24,7 @@
 
 CItem::CItem(DWORD dwVnum)
 	: m_dwVnum(dwVnum), m_bWindow(0), m_dwID(0), m_bEquipped(false), m_dwVID(0), m_wCell(0), m_dwCount(0), m_lFlag(0), m_dwLastOwnerPID(0),
-	m_bExchanging(false), m_pkDestroyEvent(NULL), m_pkUniqueExpireEvent(NULL), m_pkTimerBasedOnWearExpireEvent(NULL), m_pkRealTimeExpireEvent(NULL),
-	m_pkExpireEvent(NULL),
+	m_bExchanging(false), m_pkDestroyEvent(NULL), m_pkExpireEvent(NULL), m_pkUniqueExpireEvent(NULL), m_pkTimerBasedOnWearExpireEvent(NULL), m_pkRealTimeExpireEvent(NULL),
    	m_pkAccessorySocketExpireEvent(NULL), m_pkOwnershipEvent(NULL), m_dwOwnershipPID(0), m_bSkipSave(false), m_isLocked(false),
 	m_dwMaskVnum(0), m_dwSIGVnum (0)
 {
@@ -1369,7 +1368,7 @@ EVENTFUNC(real_time_expire_event)
 
 	if (current > item->GetSocket(0))
 	{
-		switch (item->GetVnum())
+		/*switch (item->GetVnum())
 		{
 			if(item->IsNewMountItem())
 			{
@@ -1377,7 +1376,7 @@ EVENTFUNC(real_time_expire_event)
 					item->ClearMountAttributeAndAffect();
 			}
 			break;
-		}
+		}*/
 
 		ITEM_MANAGER::instance().RemoveItem(item, "REAL_TIME_EXPIRE");
 
@@ -1722,7 +1721,7 @@ void CItem::AccessorySocketDegrade()
 // ring에 item을 박을 수 있는지 여부를 체크해서 리턴
 static const bool CanPutIntoRing(LPITEM ring, LPITEM item)
 {
-	const DWORD vnum = item->GetVnum();
+	//const DWORD vnum = item->GetVnum();
 	return false;
 }
 
@@ -2066,7 +2065,7 @@ int	CItem::GetDuration()
 	}
 	
 	if (-1 != GetProto()->cLimitTimerBasedOnWearIndex)
-		return GetProto()->aLimits[GetProto()->cLimitTimerBasedOnWearIndex].lValue;	
+		return GetProto()->aLimits[(unsigned char)(GetProto()->cLimitTimerBasedOnWearIndex)].lValue;	
 
 	return -1;
 }

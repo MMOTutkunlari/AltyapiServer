@@ -138,7 +138,7 @@ class FuncFindMobVictim
 		LPCHARACTER GetVictim()
 		{
 			// 근처에 건물이 있고 피가 많이 있다면 건물을 공격한다. 건물만 있어도 건물을 공격
-			if (m_pkChrBuilding && m_pkChr->GetHP() * 2 > m_pkChr->GetMaxHP() || !m_pkChrVictim)
+			if ((m_pkChrBuilding && m_pkChr->GetHP() * 2 > m_pkChr->GetMaxHP()) || !m_pkChrVictim)
 			{
 				return m_pkChrBuilding;
 			}

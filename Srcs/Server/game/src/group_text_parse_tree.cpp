@@ -3,7 +3,7 @@
 #include "group_text_parse_tree.h"
 
 CGroupTextParseTreeLoader::CGroupTextParseTreeLoader()
-	: m_dwcurLineIndex(0), m_pRootGroupNode(NULL)
+	: m_pRootGroupNode(NULL), m_dwcurLineIndex(0)
 {
 }
 

@@ -7,6 +7,7 @@
 #include "buffer_manager.h"
 #include "unique_item.h"
 #include "wedding.h"
+#include "config.h"
 
 #define NEED_TARGET	(1 << 0)
 #define NEED_PC		(1 << 1)
@@ -108,6 +109,9 @@ ACMD(do_emotion_allow)
 
 bool CHARACTER_CanEmotion(CHARACTER& rch)
 {
+	if (g_bDisableEmotionMask)
+		return true;
+	
 	// 결혼식 맵에서는 사용할 수 있다.
 	if (marriage::WeddingManager::instance().IsWeddingMap(rch.GetMapIndex()))
 		return true;

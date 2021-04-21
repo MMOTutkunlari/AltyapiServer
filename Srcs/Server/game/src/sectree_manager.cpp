@@ -336,7 +336,7 @@ void SECTREE_MANAGER::LoadDungeon(int iIndex, const char * c_pszFileName)
 		if (NULL == fgets(buf, 1024, fp))
 			break;
 
-		if (buf[0] == '#' || buf[0] == '/' && buf[1] == '/')
+		if (buf[0] == '#' || (buf[0] == '/' && buf[1] == '/'))
 			continue;
 
 		std::istringstream ins(buf, std::ios_base::in);

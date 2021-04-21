@@ -587,7 +587,7 @@ void CClientManager::RESULT_SAFEBOX_LOAD(CPeer * pkPeer, SQLMsg * msg)
 
 		char szQuery[512];
 		snprintf(szQuery, sizeof(szQuery), 
-				"SELECT id, window+0, pos, count, vnum, socket0, socket1, socket2, "
+				"SELECT id, `window`+0, pos, count, vnum, socket0, socket1, socket2, "
 				"attrtype0, attrvalue0, "
 				"attrtype1, attrvalue1, "
 				"attrtype2, attrvalue2, "
@@ -595,7 +595,7 @@ void CClientManager::RESULT_SAFEBOX_LOAD(CPeer * pkPeer, SQLMsg * msg)
 				"attrtype4, attrvalue4, "
 				"attrtype5, attrvalue5, "
 				"attrtype6, attrvalue6 "
-				"FROM item%s WHERE owner_id=%d AND window='%s'",
+				"FROM item%s WHERE owner_id=%d AND `window`='%s'",
 				GetTablePostfix(), pi->account_id, pi->ip[0] == 0 ? "SAFEBOX" : "MALL");
 
 		pi->account_index = 1;
@@ -709,7 +709,7 @@ void CClientManager::RESULT_SAFEBOX_LOAD(CPeer * pkPeer, SQLMsg * msg)
 
 							dwSkillVnum = m_vec_skillTable[dwSkillIdx].dwVnum;
 
-							if (!dwSkillVnum > 120)
+							if (!(dwSkillVnum > 120))
 								continue;
 
 							break;
@@ -784,7 +784,7 @@ void CClientManager::RESULT_SAFEBOX_LOAD(CPeer * pkPeer, SQLMsg * msg)
 						}
 
 						snprintf(szQuery, sizeof(szQuery), 
-								"INSERT INTO item%s (id, owner_id, window, pos, vnum, count, socket0, socket1, socket2) "
+								"INSERT INTO item%s (id, owner_id, `window`, pos, vnum, count, socket0, socket1, socket2) "
 								"VALUES(%u, %u, '%s', %d, %u, %u, %u, %u, %u)",
 								GetTablePostfix(),
 								GainItemID(),
@@ -887,7 +887,7 @@ void CClientManager::RESULT_SAFEBOX_CHANGE_PASSWORD(CPeer * pkPeer, SQLMsg * msg
 	{
 		MYSQL_ROW row = mysql_fetch_row(msg->Get()->pSQLResult);
 
-		if (row[0] && *row[0] && !strcasecmp(row[0], p->login) || (!row[0] || !*row[0]) && !strcmp("000000", p->login))
+		if ((row[0] && *row[0] && !strcasecmp(row[0], p->login)) || ((!row[0] || !*row[0]) && !strcmp("000000", p->login)))
 		{
 			char szQuery[QUERY_MAX_LEN];
 			char escape_pwd[64];

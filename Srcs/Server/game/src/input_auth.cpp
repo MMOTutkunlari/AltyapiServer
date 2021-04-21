@@ -213,7 +213,7 @@ void CInputAuth::Login(LPDESC d, const char * c_pData)
 	else
 	{
 		DBManager::instance().ReturnQuery(QID_AUTH_LOGIN, dwKey, p, 
-				"SELECT PASSWORD('%s'),password,securitycode,social_id,id,status,availDt - NOW() > 0,"
+				"SELECT CONCAT('*', UPPER(SHA1(UNHEX(SHA1('%s'))))),password,securitycode,social_id,id,status,availDt - NOW() > 0,"
 				"UNIX_TIMESTAMP(silver_expire),"
 				"UNIX_TIMESTAMP(gold_expire),"
 				"UNIX_TIMESTAMP(safebox_expire),"
@@ -354,7 +354,7 @@ void CInputAuth::LoginOpenID(LPDESC d, const char * c_pData)
 	else
 	{
 		DBManager::instance().ReturnQuery(QID_AUTH_LOGIN, dwKey, p, 
-				"SELECT PASSWORD('%s'),password,securitycode,social_id,id,status,availDt - NOW() > 0,"
+				"SELECT CONCAT('*', UPPER(SHA1(UNHEX(SHA1('%s'))))),password,securitycode,social_id,id,status,availDt - NOW() > 0,"
 				"UNIX_TIMESTAMP(silver_expire),"
 				"UNIX_TIMESTAMP(gold_expire),"
 				"UNIX_TIMESTAMP(safebox_expire),"
@@ -443,7 +443,7 @@ int CInputAuth::auth_OpenID(const char *authKey, const char *ipAddr, char *rID)
 	strcpy(buffer, reply);
 
 	const char *delim = "\r\n";
-	char *last = 0;
+	//char *last = 0;
 	char *v = strtok(buffer, delim);
 	char *result = 0;
 

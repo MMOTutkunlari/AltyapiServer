@@ -69,7 +69,7 @@ const char* cCsvAlias::operator [] (size_t index) const
     INDEX2NAME_MAP::const_iterator itr(m_Index2Name.find(index));
     if (itr == m_Index2Name.end())
     {
-        LogToFile(NULL, "cannot find suitable conversion for %d", index);
+        //LogToFile(NULL, "cannot find suitable conversion for %d", index);
         Assert(false && "cannot find suitable conversion");
         return NULL;
     }
@@ -87,7 +87,7 @@ size_t cCsvAlias::operator [] (const char* name) const
     NAME2INDEX_MAP::const_iterator itr(m_Name2Index.find(Lower(name)));
     if (itr == m_Name2Index.end())
     {
-        LogToFile(NULL, "cannot find suitable conversion for %s", name);
+        //LogToFile(NULL, "cannot find suitable conversion for %s", name);
         Assert(false && "cannot find suitable conversion");
         return 0;
     }

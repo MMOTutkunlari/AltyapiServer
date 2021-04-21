@@ -321,8 +321,8 @@ void CClientManager::QUERY_PLAYER_LOAD(CPeer * peer, DWORD dwHandle, TPlayerLoad
 		else
 		{
 			snprintf(szQuery, sizeof(szQuery), 
-					"SELECT id,window+0,pos,count,vnum,socket0,socket1,socket2,attrtype0,attrvalue0,attrtype1,attrvalue1,attrtype2,attrvalue2,attrtype3,attrvalue3,attrtype4,attrvalue4,attrtype5,attrvalue5,attrtype6,attrvalue6 "
-					"FROM item%s WHERE owner_id=%d AND (window < %d or window = %d)",
+					"SELECT id,`window`+0,pos,count,vnum,socket0,socket1,socket2,attrtype0,attrvalue0,attrtype1,attrvalue1,attrtype2,attrvalue2,attrtype3,attrvalue3,attrtype4,attrvalue4,attrtype5,attrvalue5,attrtype6,attrvalue6 "
+					"FROM item%s WHERE owner_id=%d AND (`window` < %d or `window` = %d)",
 					GetTablePostfix(), pTab->id, SAFEBOX, DRAGON_SOUL_INVENTORY);
 
 			CDBManager::instance().ReturnQuery(szQuery,
@@ -378,8 +378,8 @@ void CClientManager::QUERY_PLAYER_LOAD(CPeer * peer, DWORD dwHandle, TPlayerLoad
 		// 아이템 가져오기 
 		//--------------------------------------------------------------
 		snprintf(queryStr, sizeof(queryStr),
-				"SELECT id,window+0,pos,count,vnum,socket0,socket1,socket2,attrtype0,attrvalue0,attrtype1,attrvalue1,attrtype2,attrvalue2,attrtype3,attrvalue3,attrtype4,attrvalue4,attrtype5,attrvalue5,attrtype6,attrvalue6 "
-				"FROM item%s WHERE owner_id=%d AND (window < %d or window = %d)",
+				"SELECT id,`window`+0,pos,count,vnum,socket0,socket1,socket2,attrtype0,attrvalue0,attrtype1,attrvalue1,attrtype2,attrvalue2,attrtype3,attrvalue3,attrtype4,attrvalue4,attrtype5,attrvalue5,attrtype6,attrvalue6 "
+				"FROM item%s WHERE owner_id=%d AND (`window` < %d or `window` = %d)",
 				GetTablePostfix(), packet->player_id, SAFEBOX, DRAGON_SOUL_INVENTORY);
 		CDBManager::instance().ReturnQuery(queryStr, QID_ITEM, peer->GetHandle(), new ClientHandleInfo(dwHandle, packet->player_id));
 
@@ -417,7 +417,8 @@ void CClientManager::ItemAward(CPeer * peer,char* login)
 		char cmdStr[100] = "";	//why콜룸에서 읽은 값을 임시 문자열에 복사해둠
 		strcpy(cmdStr,whyStr);	//명령어 얻는 과정에서 토큰쓰면 원본도 토큰화 되기 때문
 		char command[20] = "";
-		strcpy(command,GetCommand(cmdStr));	// command 얻기		
+		//strcpy(command,GetCommand(cmdStr));	// command 얻기		
+		GetCommand(cmdStr, command);
 		if( !(strcmp(command,"GIFT") ))	// command 가 GIFT이면
 		{
 			TPacketItemAwardInfromer giftData;
@@ -428,9 +429,9 @@ void CClientManager::ItemAward(CPeer * peer,char* login)
 		}
 	}
 }
-char* CClientManager::GetCommand(char* str)
+char* CClientManager::GetCommand(char* str, char* command)
 {
-	char command[20] = "";
+	//char command[20] = "";
 	char* tok;
 
 	if( str[0] == '[' )
@@ -1132,7 +1133,7 @@ void CClientManager::__RESULT_PLAYER_DELETE(CPeer *peer, SQLMsg* msg)
 		snprintf(queryStr, sizeof(queryStr), "DELETE FROM player%s WHERE id=%d", GetTablePostfix(), pi->player_id);
 		delete CDBManager::instance().DirectQuery(queryStr);
 
-		snprintf(queryStr, sizeof(queryStr), "DELETE FROM item%s WHERE owner_id=%d AND (window < %d or window = %d)", GetTablePostfix(), pi->player_id, SAFEBOX, DRAGON_SOUL_INVENTORY);
+		snprintf(queryStr, sizeof(queryStr), "DELETE FROM item%s WHERE owner_id=%d AND (`window` < %d or `window` = %d)", GetTablePostfix(), pi->player_id, SAFEBOX, DRAGON_SOUL_INVENTORY);
 		delete CDBManager::instance().DirectQuery(queryStr);
 
 		snprintf(queryStr, sizeof(queryStr), "DELETE FROM quest%s WHERE dwPID=%d", GetTablePostfix(), pi->player_id);
@@ -1259,7 +1260,7 @@ void CClientManager::RESULT_HIGHSCORE_REGISTER(CPeer * pkPeer, SQLMsg * msg)
 		if (row && row[0])
 		{
 			int current_value = 0; str_to_number(current_value, row[0]);
-			if (pi->account_index && current_value >= value || !pi->account_index && current_value <= value)
+			if ((pi->account_index && current_value >= value) || (!pi->account_index && current_value <= value))
 			{
 				value = current_value;
 			}

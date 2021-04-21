@@ -40,7 +40,7 @@ class HME
 		bool operator<(const HME &rhs) const
 		{
 			return (hour<rhs.hour)
-				|| (hour==rhs.hour) && (min<rhs.min);
+				|| ((hour==rhs.hour) && (min<rhs.min));
 		}
 };
 
@@ -65,8 +65,8 @@ class Date
 		bool operator<(const Date &rhs) const
 		{
 			return (year<rhs.year)
-				|| (year==rhs.year) && (mon<rhs.mon)
-				|| (year==rhs.year) && (mon==rhs.mon) && (day<rhs.day);
+				|| ((year==rhs.year) && (mon<rhs.mon))
+				|| ((year==rhs.year) && (mon==rhs.mon) && (day<rhs.day));
 		}
 };
 

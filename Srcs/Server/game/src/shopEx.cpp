@@ -133,7 +133,7 @@ int CShopEx::Buy(LPCHARACTER ch, BYTE pos)
 	TShopTableEx& shopTab = m_vec_shopTabs[tabIdx];
 	TShopItemTable& r_item = shopTab.items[slotPos];
 
-	if (r_item.price <= 0)
+	if (r_item.price < 0)
 	{
 		LogManager::instance().HackLog("SHOP_BUY_GOLD_OVERFLOW", ch);
 		return SHOP_SUBHEADER_GC_NOT_ENOUGH_MONEY;

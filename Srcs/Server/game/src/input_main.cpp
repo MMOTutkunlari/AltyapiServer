@@ -701,9 +701,9 @@ int CInputMain::Chat(LPCHARACTER ch, const char * data, size_t uiBytes)
 	int len;
 	if (g_bShoutAddonEnable)
 	{
-		int len = snprintf(chatbuf, sizeof(chatbuf), "[%s]%s : %s", LC_TEXT(c_apszEmpireNames[ch->GetEmpire()]), ch->GetName(), buf);
+		len = snprintf(chatbuf, sizeof(chatbuf), "[%s]%s : %s", LC_TEXT(c_apszEmpireNames[ch->GetEmpire()]), ch->GetName(), buf);
 	} else {
-		int len = snprintf(chatbuf, sizeof(chatbuf), "%s : %s", ch->GetName(), buf);
+		len = snprintf(chatbuf, sizeof(chatbuf), "%s : %s", ch->GetName(), buf);
 	}
 	
 

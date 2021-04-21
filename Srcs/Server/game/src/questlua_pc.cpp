@@ -395,7 +395,7 @@ namespace quest
 
 		std::vector <DWORD> dwVnums;
 		std::vector <DWORD> dwCounts;
-		std::vector <LPITEM> item_gets(NULL);
+		std::vector <LPITEM> item_gets(0);
 		int count = 0;
 
 		ch->GiveItemFromSpecialItemGroup(dwGroupVnum, dwVnums, dwCounts, item_gets, count);

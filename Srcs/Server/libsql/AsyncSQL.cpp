@@ -138,7 +138,7 @@ bool CAsyncSQL::Connect()
 		return false;
 	}
 
-	my_bool reconnect = true;
+	bool reconnect = true;
 
 	if (0 != mysql_options(&m_hDB, MYSQL_OPT_RECONNECT, &reconnect))
 		fprintf(stderr, "mysql_option: %s\n", mysql_error(&m_hDB));
