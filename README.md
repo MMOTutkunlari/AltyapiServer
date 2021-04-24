@@ -5,7 +5,7 @@ Metin2 Sıfırdan Altyapı Server Files Hazırlama Rehberini hazırlarken kullan
 Rehbere bakmak isterseniz: https://www.mmotutkunlari.com/konu/metin2-sifirdan-altyapi-server-files-hazirlama-rehberi.7141
 
 ### Nasıl Kurulur? ####
-Şuan için bu dosyalar Freebsd 12.1 veya 11.x ile build edilmektedir.
+Şuan için bu dosyalar FreeBSD 13.x, Freebsd 12.x veya 11.x (32bit) ile build edilmektedir.
 #### Kurulması Gereken Paketler ####
 * mysql80-client
 * mysql80-server
