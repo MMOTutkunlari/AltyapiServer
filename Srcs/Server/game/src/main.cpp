@@ -252,6 +252,7 @@ void heartbeat(LPHEART ht, int pulse)
 #ifdef ENABLE_LIMIT_TIME
 		if ((unsigned)get_global_time() >= GLOBAL_LIMIT_TIME)
 		{
+			fprintf(stderr, "Serverinizin kullanim suresi doldu.\n");
 			sys_err("Server life time expired.");
 			g_bShutdown = true;
 		}
@@ -663,6 +664,7 @@ int start(int argc, char **argv)
 #ifdef ENABLE_LIMIT_TIME
 	if ((unsigned)get_global_time() >= GLOBAL_LIMIT_TIME)
 	{
+		fprintf(stderr, "Serverinizin kullanim suresi doldu.\n");
 		sys_err("Server life time expired.");
 		return 0;
 	}
