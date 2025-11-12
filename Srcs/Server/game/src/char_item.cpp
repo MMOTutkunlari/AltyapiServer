@@ -343,6 +343,12 @@ void CHARACTER::SetItem(TItemPos Cell, LPITEM pItem)
 	// ¿ëÈ¥¼® ÀÎº¥Åä¸®
 	case DRAGON_SOUL_INVENTORY:
 		{
+			if (wCell >= DRAGON_SOUL_INVENTORY_MAX_NUM)
+			{
+				sys_err("CHARACTER::SetItem: invalid DS item cell %d", wCell);
+				return;
+			}
+
 			LPITEM pOld = m_pointsInstant.pDSItems[wCell];
 
 			if (pOld)
@@ -368,12 +374,6 @@ void CHARACTER::SetItem(TItemPos Cell, LPITEM pItem)
 
 			if (pItem)
 			{
-				if (wCell >= DRAGON_SOUL_INVENTORY_MAX_NUM)
-				{
-					sys_err("CHARACTER::SetItem: invalid DS item cell %d", wCell);
-					return;
-				}
-
 				if (wCell < DRAGON_SOUL_INVENTORY_MAX_NUM)
 				{
 					for (int i = 0; i < pItem->GetSize(); ++i)
@@ -457,7 +457,7 @@ void CHARACTER::SetItem(TItemPos Cell, LPITEM pItem)
 LPITEM CHARACTER::GetWear(BYTE bCell) const
 {
 	// > WEAR_MAX_NUM : ¿ëÈ¥¼® ½½·Ôµé.
-	if (bCell >= WEAR_MAX_NUM + DRAGON_SOUL_DECK_MAX_NUM * DS_SLOT_MAX)
+	if (bCell >= WEAR_MAX_NUM + static_cast<int>(DRAGON_SOUL_DECK_MAX_NUM) * static_cast<int>(DS_SLOT_MAX))
 	{
 		sys_err("CHARACTER::GetWear: invalid wear cell %d", bCell);
 		return NULL;
@@ -469,7 +469,7 @@ LPITEM CHARACTER::GetWear(BYTE bCell) const
 void CHARACTER::SetWear(BYTE bCell, LPITEM item)
 {
 	// > WEAR_MAX_NUM : ¿ëÈ¥¼® ½½·Ôµé.
-	if (bCell >= WEAR_MAX_NUM + DRAGON_SOUL_DECK_MAX_NUM * DS_SLOT_MAX)
+	if (bCell >= WEAR_MAX_NUM + static_cast<int>(DRAGON_SOUL_DECK_MAX_NUM) * static_cast<int>(DS_SLOT_MAX))
 	{
 		sys_err("CHARACTER::SetItem: invalid item cell %d", bCell);
 		return;

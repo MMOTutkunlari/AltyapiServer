@@ -10,7 +10,8 @@
 #include "item_manager.h"
 #include "log.h"
 #include "db.h"
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
+using namespace boost::placeholders;
 #include "item.h"
 #include "desc_client.h"
 #include "../../common/tables.h"

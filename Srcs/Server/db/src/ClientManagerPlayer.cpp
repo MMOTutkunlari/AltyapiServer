@@ -583,9 +583,9 @@ void CClientManager::RESULT_COMPOSITE_PLAYER(CPeer * peer, SQLMsg * pMsg, DWORD 
 				
 				CLoginData* pLoginData1 = GetLoginDataByAID(temp1->account_id);	//				
 				//독일 선물 기능
-				if( pLoginData1->GetAccountRef().login == NULL)
+				if (pLoginData1 == NULL)
 					break;
-				if( pLoginData1 == NULL )
+				if( pLoginData1->GetAccountRef().login[0] == '\0')
 					break;
 				sys_log(0,"info of pLoginData1 before call ItemAwardfunction %d",pLoginData1);
 				ItemAward(peer,pLoginData1->GetAccountRef().login);

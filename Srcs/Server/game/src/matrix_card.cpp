@@ -76,7 +76,7 @@ bool DecodeMatrix(const char* szsrc, const char* szpwd, char* lpdes, const unsig
 
 void MatrixCardRndCoordinate(unsigned long & rows, unsigned long & cols)
 {
-	for (register unsigned long i = 0; i < (ASLENGTH >> 1); i++)
+	for (unsigned long i = 0; i < (ASLENGTH >> 1); i++)
 	{
 		rows |= ((thecore_random() % MAX_ROWS) & 0x000000FF) << ((4 - i - 1) * 8);
 		cols |= ((thecore_random() % MAX_COLS) & 0x000000FF) << ((4 - i - 1) * 8);
@@ -99,7 +99,7 @@ bool ChkCoordinate(const unsigned long rows, const unsigned long cols, const cha
 	unsigned short * pmatrix = (unsigned short *)matrix;
 	unsigned short * panswer = (unsigned short *)answer;
 
-	for (register unsigned long i = 0; i < (ASLENGTH >> 1); i++)
+	for (unsigned long i = 0; i < (ASLENGTH >> 1); i++)
 	{
 		if (*(pmatrix + (ROW(rows, i) * MAX_COLS + COL(cols, i))) != *(panswer + i))
 		{
@@ -144,7 +144,7 @@ void GetRightAnswer(const unsigned long rows, const unsigned long cols, const ch
 
 	memset(answer, 0, nsize);
 
-	for (register unsigned long i = 0; i < (ASLENGTH >> 1); i++)
+	for (unsigned long i = 0; i < (ASLENGTH >> 1); i++)
 	{
 		char sztemp[3] = { 0, 0, 0 };
 		memcpy(sztemp, (char*)(pmatrix + (ROW(rows, i) * MAX_COLS + COL(cols, i))), 2);

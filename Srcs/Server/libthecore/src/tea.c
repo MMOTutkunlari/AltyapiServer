@@ -31,7 +31,7 @@ char tea_nilbuf[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
 INLINE void tea_code(const DWORD sz, const DWORD sy, const DWORD *key, DWORD *dest)
 {
-    register DWORD	y = sy, z = sz, sum = 0;
+    DWORD	y = sy, z = sz, sum = 0;
 
     y	+= ((z << 4 ^ z >> 5) + z) ^ (sum + key[sum & 3]);		// 1
     sum	+= DELTA;
@@ -167,7 +167,7 @@ INLINE void tea_code(const DWORD sz, const DWORD sy, const DWORD *key, DWORD *de
 
 INLINE void tea_decode(const DWORD sz, const DWORD sy, const DWORD *key, DWORD *dest)
 {
-    register DWORD y = sy, z = sz, sum = DELTA * TEA_ROUND;
+    DWORD y = sy, z = sz, sum = DELTA * TEA_ROUND;
 
     z -= ((y << 4 ^ y >> 5) + y) ^ (sum + key[sum >> 11 & 3]);		// 1
     sum -= DELTA;

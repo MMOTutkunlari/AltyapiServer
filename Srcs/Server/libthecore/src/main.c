@@ -120,5 +120,5 @@ int thecore_is_shutdowned(void)
 
 void thecore_tick(void)
 {
-	++tics;
+	tics = tics + 1;
 }

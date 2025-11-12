@@ -1,4 +1,4 @@
-CPP = g++9
+CPP = g++15
 CPPFLAGS=-g
 INCLUDEDIR=../../../liblua/include
 LIBDIR=../../../liblua/lib

@@ -16,7 +16,7 @@ void CGuildMarkManager::__DeleteImage(CGuildMarkImage * pkImgDel)
 CGuildMarkManager::CGuildMarkManager()
 {
 	// 남은 mark id 셋을 만든다. (서버용)
-	for (DWORD i = 0; i < MAX_IMAGE_COUNT * CGuildMarkImage::MARK_TOTAL_COUNT; ++i)
+	for (DWORD i = 0; i < static_cast<int>(MAX_IMAGE_COUNT) * static_cast<int>(CGuildMarkImage::MARK_TOTAL_COUNT); ++i)
 		m_setFreeMarkID.insert(i);
 }
 
@@ -101,7 +101,7 @@ void CGuildMarkManager::LoadMarkImages()
 	{
 		DWORD markID = it->second;
 
-		if (markID < MAX_IMAGE_COUNT * CGuildMarkImage::MARK_TOTAL_COUNT)
+		if (markID < static_cast<int>(MAX_IMAGE_COUNT) * static_cast<int>(CGuildMarkImage::MARK_TOTAL_COUNT))
 			isMarkExists[markID / CGuildMarkImage::MARK_TOTAL_COUNT] = true;
 	}
 
@@ -149,7 +149,7 @@ CGuildMarkImage * CGuildMarkManager::__GetImage(DWORD imgIdx)
 
 bool CGuildMarkManager::AddMarkIDByGuildID(DWORD guildID, DWORD markID)
 {
-	if (markID >= MAX_IMAGE_COUNT * CGuildMarkImage::MARK_TOTAL_COUNT)
+	if (markID >= static_cast<int>(MAX_IMAGE_COUNT) * static_cast<int>(CGuildMarkImage::MARK_TOTAL_COUNT))
 		return false;
 
 	//sys_log(0, "MarkManager: guild_id=%d mark_id=%d", guildID, markID);

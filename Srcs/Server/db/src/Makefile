@@ -1,5 +1,5 @@
 MAKE = gmake
-CC = g++9
+CC = g++15
 
 INCDIR =
 LIBDIR =
@@ -17,7 +17,7 @@ TARGET = $(BINDIR)/db_r$(SVN_VERSION)
 CFLAGS = -m32 -g -Wall -O2 -pipe -fno-rtti -fno-exceptions -pthread -fno-strict-aliasing -D_THREAD_SAFE
 CFLAGS += -Wno-deprecated-declarations -Wno-format-truncation -Wno-nonnull-compare
 CFLAGS += -Wno-int-in-bool-context
-CXXFLAGS = -std=c++11 -Wl,-rpath=/usr/local/lib/gcc9
+CXXFLAGS = -std=c++23 -Wl,-rpath=/usr/local/lib/gcc15
 
 # boost
 INCDIR += -I../../../Extern/include/boost

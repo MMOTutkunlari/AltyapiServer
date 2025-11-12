@@ -160,9 +160,9 @@ void fdwatch_del_fd(LPFDWATCH fdw, socket_t fd)
 
 void fdwatch_clear_event(LPFDWATCH fdw, socket_t fd, unsigned int event_idx)
 {
-    assert(event_idx < fdw->nfiles * 2);
+    assert(event_idx < (unsigned int)fdw->nfiles * 2);
 
-    if (fdw->kqrevents[event_idx].ident != fd)
+    if (fdw->kqrevents[event_idx].ident != (unsigned int)fd)
 	return;
 
     fdw->kqrevents[event_idx].ident = 0;
@@ -170,9 +170,9 @@ void fdwatch_clear_event(LPFDWATCH fdw, socket_t fd, unsigned int event_idx)
 
 int fdwatch_check_event(LPFDWATCH fdw, socket_t fd, unsigned int event_idx)
 {
-    assert(event_idx < fdw->nfiles * 2);
+    assert(event_idx < (unsigned int)fdw->nfiles * 2);
 
-    if (fdw->kqrevents[event_idx].ident != fd)
+    if (fdw->kqrevents[event_idx].ident != (unsigned int)fd)
 	return 0;
 
     if (fdw->kqrevents[event_idx].flags & EV_ERROR)
@@ -204,7 +204,7 @@ int fdwatch_check_event(LPFDWATCH fdw, socket_t fd, unsigned int event_idx)
 
 int fdwatch_get_ident(LPFDWATCH fdw, unsigned int event_idx)
 {
-    assert(event_idx < fdw->nfiles * 2);
+    assert(event_idx < (unsigned int)fdw->nfiles * 2);
     return fdw->kqrevents[event_idx].ident;
 }
 
@@ -222,7 +222,7 @@ void * fdwatch_get_client_data(LPFDWATCH fdw, unsigned int event_idx)
 {
     int fd;
 
-    assert(event_idx < fdw->nfiles * 2);
+    assert(event_idx < (unsigned int)fdw->nfiles * 2);
 
     fd = fdw->kqrevents[event_idx].ident;
 

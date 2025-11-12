@@ -46,7 +46,6 @@ struct hash;
 
 template<typename _Tp>
 struct hash<_Tp*>
-: public std::unary_function<_Tp*, std::size_t>
 {
 	std::size_t
 		operator()(_Tp* __p) const
@@ -115,9 +114,11 @@ namespace std
 	}
 
 	template <class _Ty>
-		class void_mem_fun_t : public unary_function<_Ty *, void>
+		class void_mem_fun_t
 		{
 			public:
+				typedef _Ty* argument_type;
+				typedef void result_type;
 				explicit void_mem_fun_t(void (_Ty::*_Pm)()) : _Ptr(_Pm)
 				{
 				}
@@ -136,9 +137,11 @@ namespace std
 		{ return (void_mem_fun_t<_Ty>(_Pm)); }
 
 	template<class _Ty>
-		class void_mem_fun_ref_t : public unary_function<_Ty, void>
+		class void_mem_fun_ref_t
 		{
 			public:
+				typedef _Ty& argument_type;
+				typedef void result_type;
 				explicit void_mem_fun_ref_t(void (_Ty::*_Pm)()) : _Ptr(_Pm) {}
 				void operator()(_Ty& x) const
 				{ return ((x.*_Ptr)()); }

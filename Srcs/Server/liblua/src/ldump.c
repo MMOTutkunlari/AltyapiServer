@@ -54,7 +54,7 @@ static void DumpNumber(lua_Number x, DumpState* D)
 
 static void DumpString(TString* s, DumpState* D)
 {
- if (s==NULL || getstr(s)==NULL)
+ if (s==NULL)
   DumpSize(0,D);
  else
  {

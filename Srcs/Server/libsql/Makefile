@@ -1,5 +1,5 @@
 #CXX	= distcc i386-obrien-freebsd5-g++
-CXX	= g++9
+CXX	= g++15
 
 PLATFORM = $(shell file /bin/ls | cut -d' ' -f3 | cut -d'-' -f1)
 
@@ -11,7 +11,7 @@ BIN     = ./libsql.a
 
 IFLAGS = -I/usr/local/include/
 CFLAGS  = $(IFLAGS) -m32 -Wall -O2 -pipe -D_THREAD_SAFE -fno-exceptions
-CFLAGS += -std=c++11
+CFLAGS += -std=c++23
 
 LIBS =
 

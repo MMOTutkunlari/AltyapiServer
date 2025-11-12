@@ -249,8 +249,12 @@ ACMD(do_shutdown)
 {
 	if (NULL == ch)
 	{
-		sys_err("Accept shutdown command from %s.", ch->GetName());
+		sys_err("Accept shutdown command from null. cancel process");
+		return;
 	}
+
+	sys_err("Accept shutdown command from %s.", ch->GetName());
+
 	TPacketGGShutdown p;
 	p.bHeader = HEADER_GG_SHUTDOWN;
 	P2P_MANAGER::instance().Send(&p, sizeof(TPacketGGShutdown));

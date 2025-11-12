@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29519.87
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11123.170 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{89E26339-8F6A-492B-8DCC-77AE7B4643EA}"
 EndProject
@@ -44,10 +44,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "db", "db\src\db.vcxproj", "{ADC2E26A-C39B-4817-A24C-A99827B74EB2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qc", "game\src\quest\qc.vcxproj", "{3783243F-5E36-4B96-9A13-7BFF00F15B34}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libserverkey", "libserverkey\libserverkey.vcxproj", "{991E4247-CB13-4CA9-B0F1-B662594935A7}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServerKeyGenerator", "..\Tools\ServerKeyGenerator\ServerKeyGenerator.vcxproj", "{51DDB7FD-8CC2-4B28-9FDF-62F526D5F2FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -157,30 +153,6 @@ Global
 		{3783243F-5E36-4B96-9A13-7BFF00F15B34}.Release|Win32.ActiveCfg = Release|Win32
 		{3783243F-5E36-4B96-9A13-7BFF00F15B34}.Release|Win32.Build.0 = Release|Win32
 		{3783243F-5E36-4B96-9A13-7BFF00F15B34}.Release|x64.ActiveCfg = Release|Win32
-		{991E4247-CB13-4CA9-B0F1-B662594935A7}.Debug|Win32.ActiveCfg = Debug|Win32
-		{991E4247-CB13-4CA9-B0F1-B662594935A7}.Debug|Win32.Build.0 = Debug|Win32
-		{991E4247-CB13-4CA9-B0F1-B662594935A7}.Debug|x64.ActiveCfg = Debug|Win32
-		{991E4247-CB13-4CA9-B0F1-B662594935A7}.DLL-Import Debug|Win32.ActiveCfg = Debug|Win32
-		{991E4247-CB13-4CA9-B0F1-B662594935A7}.DLL-Import Debug|Win32.Build.0 = Debug|Win32
-		{991E4247-CB13-4CA9-B0F1-B662594935A7}.DLL-Import Debug|x64.ActiveCfg = Debug|Win32
-		{991E4247-CB13-4CA9-B0F1-B662594935A7}.DLL-Import Release|Win32.ActiveCfg = Release|Win32
-		{991E4247-CB13-4CA9-B0F1-B662594935A7}.DLL-Import Release|Win32.Build.0 = Release|Win32
-		{991E4247-CB13-4CA9-B0F1-B662594935A7}.DLL-Import Release|x64.ActiveCfg = Release|Win32
-		{991E4247-CB13-4CA9-B0F1-B662594935A7}.Release|Win32.ActiveCfg = Release|Win32
-		{991E4247-CB13-4CA9-B0F1-B662594935A7}.Release|Win32.Build.0 = Release|Win32
-		{991E4247-CB13-4CA9-B0F1-B662594935A7}.Release|x64.ActiveCfg = Release|Win32
-		{51DDB7FD-8CC2-4B28-9FDF-62F526D5F2FB}.Debug|Win32.ActiveCfg = Debug|Win32
-		{51DDB7FD-8CC2-4B28-9FDF-62F526D5F2FB}.Debug|Win32.Build.0 = Debug|Win32
-		{51DDB7FD-8CC2-4B28-9FDF-62F526D5F2FB}.Debug|x64.ActiveCfg = Debug|Win32
-		{51DDB7FD-8CC2-4B28-9FDF-62F526D5F2FB}.DLL-Import Debug|Win32.ActiveCfg = Debug|Win32
-		{51DDB7FD-8CC2-4B28-9FDF-62F526D5F2FB}.DLL-Import Debug|Win32.Build.0 = Debug|Win32
-		{51DDB7FD-8CC2-4B28-9FDF-62F526D5F2FB}.DLL-Import Debug|x64.ActiveCfg = Debug|Win32
-		{51DDB7FD-8CC2-4B28-9FDF-62F526D5F2FB}.DLL-Import Release|Win32.ActiveCfg = Release|Win32
-		{51DDB7FD-8CC2-4B28-9FDF-62F526D5F2FB}.DLL-Import Release|Win32.Build.0 = Release|Win32
-		{51DDB7FD-8CC2-4B28-9FDF-62F526D5F2FB}.DLL-Import Release|x64.ActiveCfg = Release|Win32
-		{51DDB7FD-8CC2-4B28-9FDF-62F526D5F2FB}.Release|Win32.ActiveCfg = Release|Win32
-		{51DDB7FD-8CC2-4B28-9FDF-62F526D5F2FB}.Release|Win32.Build.0 = Release|Win32
-		{51DDB7FD-8CC2-4B28-9FDF-62F526D5F2FB}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -194,8 +166,6 @@ Global
 		{146DE22F-4DD4-4E6F-B2FD-98AE163BEBBA} = {A168341F-FAE3-4DE6-858E-1A0479986B90}
 		{ADC2E26A-C39B-4817-A24C-A99827B74EB2} = {A168341F-FAE3-4DE6-858E-1A0479986B90}
 		{3783243F-5E36-4B96-9A13-7BFF00F15B34} = {12B8EA69-291D-48D9-9F47-DE82A4BD47A2}
-		{991E4247-CB13-4CA9-B0F1-B662594935A7} = {89E26339-8F6A-492B-8DCC-77AE7B4643EA}
-		{51DDB7FD-8CC2-4B28-9FDF-62F526D5F2FB} = {12B8EA69-291D-48D9-9F47-DE82A4BD47A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5B69277E-621F-4B8B-B5CE-6EE8F5FA65B3}

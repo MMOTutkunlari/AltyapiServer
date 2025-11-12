@@ -63,7 +63,8 @@
 #include "SpeedServer.h"
 #include "XTrapManager.h"
 #include "DragonSoul.h"
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
+using namespace boost::placeholders;
 #ifndef __WIN32__
 	#include "limit_time.h"
 #endif

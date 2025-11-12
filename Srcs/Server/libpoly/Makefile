@@ -1,10 +1,10 @@
-CXX	= g++9
+CXX	= g++15
 BIN = ./libpoly.a
 
 GCC_VERSION = $(shell $(CC) --version 2>&1 | grep "(GCC)" | cut -d' ' -f3  | cut -d'.' -f1)
 
 CFLAGS  = -m32 -Wall -O2 -pipe -fno-exceptions -fno-rtti
-CFLAGS += -std=c++11
+CFLAGS += -std=c++23
 
 LIBS =
 

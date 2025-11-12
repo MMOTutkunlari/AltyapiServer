@@ -248,7 +248,7 @@ static int g_iofile (lua_State *L, const char *name, const char *mode) {
       }
     }
     else {
-      tofile(L, 1);  /* check that it's a valid file handle */
+      tofileh(L, 1);  /* check that it's a valid file handle */
       lua_pushvalue(L, 1);
     }
     lua_rawset(L, lua_upvalueindex(1));
@@ -283,7 +283,7 @@ static void aux_lines (lua_State *L, int idx, int close) {
 
 
 static int f_lines (lua_State *L) {
-  tofile(L, 1);  /* check that it's a valid file handle */
+  tofileh(L, 1);  /* check that it's a valid file handle */
   aux_lines(L, 1, 0);
   return 1;
 }

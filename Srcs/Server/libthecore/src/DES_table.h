@@ -161,9 +161,9 @@ static DWORD SP_boxes[8][64]=
     }
 };
 
-static DWORD KeyPerm[8][64] = 
+/*static DWORD KeyPerm[8][64] =
 {
-    /* for C bits (numbered as per FIPS 46) 1 2 3 4 5 6 */
+    // for C bits (numbered as per FIPS 46) 1 2 3 4 5 6 
     {
 	0x00000000,0x00000010,0x20000000,0x20000010,
 	0x00010000,0x00010010,0x20010000,0x20010010,
@@ -183,7 +183,7 @@ static DWORD KeyPerm[8][64] =
 	0x00090820,0x00090830,0x20090820,0x20090830
     },
 
-    /* for C bits (numbered as per FIPS 46) 7 8 10 11 12 13 */
+    // for C bits (numbered as per FIPS 46) 7 8 10 11 12 13 
     {
 	0x00000000,0x02000000,0x00002000,0x02002000,
 	0x00200000,0x02200000,0x00202000,0x02202000,
@@ -203,7 +203,7 @@ static DWORD KeyPerm[8][64] =
 	0x10200404,0x12200404,0x10202404,0x12202404
     },
 
-    /* for C bits (numbered as per FIPS 46) 14 15 16 17 19 20 */
+    // for C bits (numbered as per FIPS 46) 14 15 16 17 19 20 
     {
 	0x00000000,0x00000001,0x00040000,0x00040001,
 	0x01000000,0x01000001,0x01040000,0x01040001,
@@ -223,7 +223,7 @@ static DWORD KeyPerm[8][64] =
 	0x09000202,0x09000203,0x09040202,0x09040203
     },
 
-    /* for C bits (numbered as per FIPS 46) 21 23 24 26 27 28 */
+    // for C bits (numbered as per FIPS 46) 21 23 24 26 27 28 
     {
 	0x00000000,0x00100000,0x00000100,0x00100100,
 	0x00000008,0x00100008,0x00000108,0x00100108,
@@ -243,7 +243,7 @@ static DWORD KeyPerm[8][64] =
 	0x04021008,0x04121008,0x04021108,0x04121108
     },
 
-    /* for D bits (numbered as per FIPS 46) 1 2 3 4 5 6 */
+    // for D bits (numbered as per FIPS 46) 1 2 3 4 5 6 
     {
 	0x00000000,0x10000000,0x00010000,0x10010000,
 	0x00000004,0x10000004,0x00010004,0x10010004,
@@ -263,7 +263,7 @@ static DWORD KeyPerm[8][64] =
 	0x20101004,0x30101004,0x20111004,0x30111004
     },
 
-    /* for D bits (numbered as per FIPS 46) 8 9 11 12 13 14 */
+    // for D bits (numbered as per FIPS 46) 8 9 11 12 13 14 
     {
 	0x00000000,0x08000000,0x00000008,0x08000008,
 	0x00000400,0x08000400,0x00000408,0x08000408,
@@ -283,7 +283,7 @@ static DWORD KeyPerm[8][64] =
 	0x02020401,0x0A020401,0x02020409,0x0A020409
     },
 
-    /* for D bits (numbered as per FIPS 46) 16 17 18 19 20 21 */
+    // for D bits (numbered as per FIPS 46) 16 17 18 19 20 21 
     {
 	0x00000000,0x00000100,0x00080000,0x00080100,
 	0x01000000,0x01000100,0x01080000,0x01080100,
@@ -303,7 +303,7 @@ static DWORD KeyPerm[8][64] =
 	0x01200210,0x01200310,0x01280210,0x01280310
     },
 
-    /* for D bits (numbered as per FIPS 46) 22 23 24 25 27 28 */
+    // for D bits (numbered as per FIPS 46) 22 23 24 25 27 28 
     {
 	0x00000000,0x04000000,0x00040000,0x04040000,
 	0x00000002,0x04000002,0x00040002,0x04040002,
@@ -322,5 +322,5 @@ static DWORD KeyPerm[8][64] =
 	0x00002820,0x04002820,0x00042820,0x04042820,
 	0x00002822,0x04002822,0x00042822,0x04042822
     }
-};
+};*/
 

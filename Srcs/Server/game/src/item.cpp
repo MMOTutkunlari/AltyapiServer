@@ -685,12 +685,12 @@ void CItem::ModifyPoints(bool bAdd)
 			{
 				if (bAdd)
 				{
-					if (m_wCell == INVENTORY_MAX_NUM + WEAR_WEAPON)
+					if (m_wCell == static_cast<int>(INVENTORY_MAX_NUM) + static_cast<int>(WEAR_WEAPON))
 						m_pOwner->SetPart(PART_WEAPON, GetVnum());
 				}
 				else
 				{
-					if (m_wCell == INVENTORY_MAX_NUM + WEAR_WEAPON)
+					if (m_wCell == static_cast<int>(INVENTORY_MAX_NUM) + static_cast<int>(WEAR_WEAPON))
 						m_pOwner->SetPart(PART_WEAPON, m_pOwner->GetOriginalPart(PART_WEAPON));
 				}
 			}
@@ -700,12 +700,12 @@ void CItem::ModifyPoints(bool bAdd)
 			{
 				if (bAdd)
 				{
-					if (m_wCell == INVENTORY_MAX_NUM + WEAR_WEAPON)
+					if (m_wCell == static_cast<int>(INVENTORY_MAX_NUM) + static_cast<int>(WEAR_WEAPON))
 						m_pOwner->SetPart(PART_WEAPON, GetVnum());
 				}
 				else
 				{
-					if (m_wCell == INVENTORY_MAX_NUM + WEAR_WEAPON)
+					if (m_wCell == static_cast<int>(INVENTORY_MAX_NUM) + static_cast<int>(WEAR_WEAPON))
 						m_pOwner->SetPart(PART_WEAPON, m_pOwner->GetOriginalPart(PART_WEAPON));
 				}
 			}
@@ -823,7 +823,7 @@ bool CItem::EquipTo(LPCHARACTER ch, BYTE bWearCell)
 	// ¿ëÈ¥¼® ½½·Ô index´Â WEAR_MAX_NUM º¸´Ù Å­.
 	if (IsDragonSoul())
 	{
-		if (bWearCell < WEAR_MAX_NUM || bWearCell >= WEAR_MAX_NUM + DRAGON_SOUL_DECK_MAX_NUM * DS_SLOT_MAX)
+		if (bWearCell < WEAR_MAX_NUM || bWearCell >= WEAR_MAX_NUM + static_cast<int>(DRAGON_SOUL_DECK_MAX_NUM) * static_cast<int>(DS_SLOT_MAX))
 		{
 			sys_err("EquipTo: invalid dragon soul cell (this: #%d %s wearflag: %d cell: %d)", GetOriginalVnum(), GetName(), GetSubType(), bWearCell - WEAR_MAX_NUM);
 			return false;

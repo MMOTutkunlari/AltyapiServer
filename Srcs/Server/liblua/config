@@ -108,7 +108,7 @@ EXTRA_LIBS= -lm
 # You need an ANSI C compiler. gcc is a popular one. We do not use -ansi in
 # WARN because it disables POSIX features used in the libraries.
 #
-CC= gcc9
+CC= gcc15
 WARN= -m32 -Wall
 
 # ------------------------------------------------------------------ C options

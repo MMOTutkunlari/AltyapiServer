@@ -80,7 +80,7 @@ bool CArenaMap::AddArena(DWORD mapIdx, WORD startA_X, WORD startA_Y, WORD startB
 
 	for (; iter != m_listArena.end(); iter++)
 	{
-		if ((CArena*)(*iter)->CheckArea(startA_X, startA_Y, startB_X, startB_Y) == false)
+		if ((CArena*)(*iter)->CheckArea(startA_X, startA_Y, startB_X, startB_Y) == nullptr)
 		{
 			sys_log(0, "CArenaMap::AddArena - Same Start Position set. stA(%d, %d) stB(%d, %d)", startA_X, startA_Y, startB_X, startB_Y);
 			return false;

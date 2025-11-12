@@ -6,7 +6,7 @@ BSD_VERSION = $(shell uname -v 2>&1 | cut -d' ' -f2 | cut -d'.' -f1)
 SVN_VERSION = $(shell cat ../../__VERSION__)
 P4_VERSION = $(shell cat ../../__VERSION__)
 
-CC = g++9
+CC = g++15
 
 INCDIR =
 LIBDIR =
@@ -21,7 +21,7 @@ CFLAGS = -g -Wall -O2 -m32 -pipe -fexceptions -fno-strict-aliasing -pthread -D_T
 CFLAGS += -Wno-deprecated-declarations -Wno-format-truncation -Wno-sign-compare -Wno-nonnull-compare
 CFLAGS += -Wno-int-in-bool-context -Wno-stringop-truncation -Wno-address
 CFLAGS += -fstack-protector-all
-CXXFLAGS = -std=c++11 -Wl,-rpath=/usr/local/lib/gcc9
+CXXFLAGS = -std=c++23 -Wl,-rpath=/usr/local/lib/gcc15,-z,noexecstack
 
 # boost
 INCDIR += -I../../../Extern/include/boost

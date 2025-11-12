@@ -126,7 +126,7 @@ static word32 f(word32 x)
  */
 void gostcrypt(word32 const in[2], word32 out[2], word32 const key[8])
 {
-    register word32 n1, n2; /* As named in the GOST */
+    word32 n1, n2; /* As named in the GOST */
 
     n1 = in[0];
     n2 = in[1];
@@ -182,7 +182,7 @@ void gostcrypt(word32 const in[2], word32 out[2], word32 const key[8])
  */
 void gostdecrypt(word32 const in[2], word32 out[2], word32 const key[8])
 {
-    register word32 n1, n2; /* As named in the GOST */
+    word32 n1, n2; /* As named in the GOST */
 
     n1 = in[0];
     n2 = in[1];
@@ -325,7 +325,7 @@ void gostcfbdecrypt(word32 const *in, word32 *out, int len, word32 iv[2], word32
  */
 void gostmac(word32 const *in, int len, word32 out[2], word32 const key[8])
 {
-    register word32 n1, n2; /* As named in the GOST */
+    word32 n1, n2; /* As named in the GOST */
 
     n1 = 0;
     n2 = 0;

@@ -338,7 +338,7 @@ int MAX(int a, int b)
 
 int MINMAX(int min, int value, int max)
 {
-    register int tv;
+    int tv;
 
     tv = (min > value ? min : value);
     return (max < tv) ? max : tv;

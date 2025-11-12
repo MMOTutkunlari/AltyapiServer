@@ -18,15 +18,14 @@
 
 CAsyncSQL::CAsyncSQL()
 	: m_stHost(""), m_stUser(""), m_stPassword(""), m_stDB(""), m_stLocale(""),
-	m_iMsgCount(0), m_bEnd(false),
+	m_iMsgCount(0), m_iPort(0), m_bEnd(false),
 #ifndef __WIN32__
 	m_hThread(0), 
 #else
 	m_hThread(INVALID_HANDLE_VALUE),
 #endif
 	m_mtxQuery(NULL), m_mtxResult(NULL),
-	m_iQueryFinished(0), m_ulThreadID(0), m_bConnected(false), m_iCopiedQuery(0),
-	m_iPort(0)
+	m_iQueryFinished(0), m_ulThreadID(0), m_bConnected(false), m_iCopiedQuery(0)
 {
 	memset( &m_hDB, 0, sizeof(m_hDB) );
 

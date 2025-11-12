@@ -61,7 +61,7 @@ bool	Blend_Item_load(char *file)
 	const char	*delim = " \t\r\n";
 	char	*v;
 
-	BLEND_ITEM_INFO	*blend_item_info;
+	BLEND_ITEM_INFO	*blend_item_info = NULL;
 
 	if (0==file || 0==file[0])
 		return false;

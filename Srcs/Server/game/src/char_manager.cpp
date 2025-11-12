@@ -19,7 +19,8 @@
 #include "shutdown_manager.h"
 
 #ifndef __GNUC__
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
+using namespace boost::placeholders;
 #endif
 
 CHARACTER_MANAGER::CHARACTER_MANAGER() :
@@ -689,7 +690,7 @@ void CHARACTER_MANAGER::Update(int iPulse)
 			CHARACTER_VECTOR v;
 			v.reserve(m_set_pkChrState.size());
 #ifdef __GNUC__
-			transform(m_set_pkChrState.begin(), m_set_pkChrState.end(), back_inserter(v), identity<CHARACTER_SET::value_type>());
+			transform(m_set_pkChrState.begin(), m_set_pkChrState.end(), back_inserter(v), [](const auto& x) { return x; });
 #else
 			v.insert(v.end(), m_set_pkChrState.begin(), m_set_pkChrState.end());
 #endif
@@ -1100,7 +1101,7 @@ CharacterVectorInteractor::CharacterVectorInteractor(const CHARACTER_SET & r)
 
 	reserve(r.size());
 #ifdef __GNUC__
-	transform(r.begin(), r.end(), back_inserter(*this), identity<CHARACTER_SET::value_type>());
+	transform(r.begin(), r.end(), back_inserter(*this), [](const auto& x) { return x; });
 #else
 	insert(end(), r.begin(), r.end());
 #endif

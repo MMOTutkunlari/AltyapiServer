@@ -306,7 +306,7 @@ void log_file_delete_old(const char *filename)
 	struct stat		sb;
 	int			num1, num2;
 	char		buf[32];
-	char		system_cmd[64];
+	char		system_cmd[1024];
 	struct tm		new_tm;
 
 	if (stat(filename, &sb) == -1)
@@ -351,7 +351,7 @@ void log_file_delete_old(const char *filename)
 
 				if (num2 <= num1)
 				{
-					sprintf(system_cmd, "rm -rf %s/%s", filename, name);
+					snprintf(system_cmd, sizeof(system_cmd), "rm -rf %s/%s", filename, name);
 					system(system_cmd);
 
 					sys_log(0, "%s: SYSTEM_CMD: %s", __FUNCTION__, system_cmd);
@@ -394,7 +394,7 @@ void log_file_rotate(LPLOGFILE logfile)
     struct tm	curr_tm;
     time_t	time_s;
     char	dir[128];
-    char	system_cmd[128];
+    char	system_cmd[2048];
 
     time_s = time(0);
     curr_tm = *localtime(&time_s);
@@ -438,9 +438,9 @@ void log_file_rotate(LPLOGFILE logfile)
 
 		// ¿Å±ä´Ù.
 #ifndef __WIN32__
-		snprintf(system_cmd, 128, "mv %s %s/%s.%02d", logfile->filename, dir, logfile->filename, logfile->last_hour);
+		snprintf(system_cmd, sizeof(system_cmd), "mv %s %s/%s.%02d", logfile->filename, dir, logfile->filename, logfile->last_hour);
 #else
-		snprintf(system_cmd, 128, "move %s %s\\%s.%02d", logfile->filename, dir, logfile->filename, logfile->last_hour);
+		snprintf(system_cmd, sizeof(system_cmd), "move %s %s\\%s.%02d", logfile->filename, dir, logfile->filename, logfile->last_hour);
 #endif
 		system(system_cmd);
 

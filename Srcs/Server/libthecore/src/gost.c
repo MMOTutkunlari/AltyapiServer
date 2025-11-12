@@ -102,7 +102,7 @@ int GOST_Encrypt(DWORD * DstBuffer, const DWORD * SrcBuffer, const DWORD * KeyAd
 
     for (i = 0; i < (Length >> 2); i = i+2)
     {
-	register DWORD n1, n2; // As named in the GOST 
+	DWORD n1, n2; // As named in the GOST 
 
 	n1 = N1;
 	n2 = N2;
@@ -171,7 +171,7 @@ int GOST_Decrypt(DWORD * DstBuffer, const DWORD * SrcBuffer, const DWORD * KeyAd
 
     for (i = 0; i < (Length >> 2); i = i + 2)
     {
-	register DWORD n1, n2; // As named in the GOST 
+	DWORD n1, n2; // As named in the GOST 
 
 	n1 = N1;
 	n2 = N2;

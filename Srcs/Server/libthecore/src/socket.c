@@ -374,7 +374,7 @@ void socket_block(socket_t s)
 
 void socket_dontroute(socket_t s)
 {
-    int set;
+    int set = 1;
 
     if (setsockopt(s, SOL_SOCKET, SO_DONTROUTE, (const char *) &set, sizeof(int)) < 0)
     {

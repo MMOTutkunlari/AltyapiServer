@@ -1,14 +1,8 @@
-/* lzoutil.h -- utilitiy functions for use by applications
+/* lzoutil.h -- utility functions for use by applications
 
    This file is part of the LZO real-time data compression library.
 
-   Copyright (C) 2002 Markus Franz Xaver Johannes Oberhumer
-   Copyright (C) 2001 Markus Franz Xaver Johannes Oberhumer
-   Copyright (C) 2000 Markus Franz Xaver Johannes Oberhumer
-   Copyright (C) 1999 Markus Franz Xaver Johannes Oberhumer
-   Copyright (C) 1998 Markus Franz Xaver Johannes Oberhumer
-   Copyright (C) 1997 Markus Franz Xaver Johannes Oberhumer
-   Copyright (C) 1996 Markus Franz Xaver Johannes Oberhumer
+   Copyright (C) 1996-2017 Markus Franz Xaver Johannes Oberhumer
    All Rights Reserved.
 
    The LZO library is free software; you can redistribute it and/or
@@ -24,7 +18,7 @@
    You should have received a copy of the GNU General Public License
    along with the LZO library; see the file COPYING.
    If not, write to the Free Software Foundation, Inc.,
-   59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
    Markus F.X.J. Oberhumer
    <markus@oberhumer.com>
@@ -32,11 +26,11 @@
  */
 
 
-#ifndef __LZOUTIL_H
-#define __LZOUTIL_H
+#ifndef __LZOUTIL_H_INCLUDED
+#define __LZOUTIL_H_INCLUDED 1
 
-#ifndef __LZOCONF_H
-#include <lzoconf.h>
+#ifndef __LZOCONF_H_INCLUDED
+#include <lzo/lzoconf.h>
 #endif
 
 #ifdef __cplusplus
@@ -45,42 +39,17 @@ extern "C" {
 
 
 /***********************************************************************
-// portable memory allocation
+// LZO-v1 deprecated macros (which were used in the old example programs)
 //
-// The LZO library does not allocate any memory (you always pass a
-// pre-allocated pointer via the `wrkmem' parameter), but these
-// functions are handy for application programs.
+// THIS FILE IS DEPRECATED. DO NOT USE.
 ************************************************************************/
 
-LZO_EXTERN(lzo_voidp) lzo_alloc(lzo_uint _nelems, lzo_uint _size);
-LZO_EXTERN(lzo_voidp) lzo_malloc(lzo_uint _size);
-LZO_EXTERN(void) lzo_free(lzo_voidp _ptr);
+#define lzo_alloc(a,b)      (malloc((a)*(b)))
+#define lzo_malloc(a)       (malloc(a))
+#define lzo_free(a)         (free(a))
 
-typedef lzo_voidp (__LZO_ENTRY *lzo_alloc_hook_t) (lzo_uint, lzo_uint);
-typedef void (__LZO_ENTRY *lzo_free_hook_t) (lzo_voidp);
-
-LZO_EXTERN_VAR(lzo_alloc_hook_t) lzo_alloc_hook;
-LZO_EXTERN_VAR(lzo_free_hook_t) lzo_free_hook;
-
-
-/***********************************************************************
-// portable file io
-************************************************************************/
-
-#if !defined(LZO_FILEP)
-#  define LZO_FILEP             void *
-#endif
-
-LZO_EXTERN(lzo_uint)
-lzo_fread(LZO_FILEP f, lzo_voidp buf, lzo_uint size);
-LZO_EXTERN(lzo_uint)
-lzo_fwrite(LZO_FILEP f, const lzo_voidp buf, lzo_uint size);
-
-
-#if (LZO_UINT_MAX <= UINT_MAX)
-#  define lzo_fread(f,b,s)      (fread(b,1,s,f))
-#  define lzo_fwrite(f,b,s)     (fwrite(b,1,s,f))
-#endif
+#define lzo_fread(f,b,s)    (fread(b,1,s,f))
+#define lzo_fwrite(f,b,s)   (fwrite(b,1,s,f))
 
 
 #ifdef __cplusplus
@@ -89,3 +58,5 @@ lzo_fwrite(LZO_FILEP f, const lzo_voidp buf, lzo_uint size);
 
 #endif /* already included */
 
+
+/* vim:set ts=4 sw=4 et: */

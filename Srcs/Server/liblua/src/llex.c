@@ -273,6 +273,18 @@ static void read_string (LexState *LS, int del, SemInfo *seminfo) {
   while (LS->current != del) {
     checkbuffer(LS, l);
 
+    switch (LS->current)
+    {
+    case EOZ:
+        save(LS, '\0', l);
+        luaX_lexerror(LS, "unfinished string", TK_EOS);
+        break;  /* to avoid warnings */
+    case '\n':
+        save(LS, '\0', l);
+        luaX_lexerror(LS, "unfinished string", TK_STRING);
+        break;  /* to avoid warnings */
+    }
+
 	  unsigned char b_current = (unsigned char)LS->current;
 	  if (b_current & 0x80)
 	  {
@@ -282,14 +294,6 @@ static void read_string (LexState *LS, int del, SemInfo *seminfo) {
 	  else
 	  {
 		  switch (b_current) {
-      case EOZ:
-        save(LS, '\0', l);
-        luaX_lexerror(LS, "unfinished string", TK_EOS);
-        break;  /* to avoid warnings */
-      case '\n':
-        save(LS, '\0', l);
-        luaX_lexerror(LS, "unfinished string", TK_STRING);
-        break;  /* to avoid warnings */
       case '\\':
         next(LS);  /* do not save the `\' */
         switch (LS->current) {
